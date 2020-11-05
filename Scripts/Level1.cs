@@ -15,24 +15,16 @@ public class Level1 : Node
 		GetNode("LevelControls").Connect("On_RightButton_pressed", this, nameof(On_RightButton_pressed));
 		GetNode("LevelControls").Connect("On_RightButton_released", this, nameof(On_RightButton_released));
 		
-		/* FIXME - Pre-populate a bunch of clouds when the level starts
-		
-		var cloud = (PackedScene)ResourceLoader.Load("res://Components/Cloud.tscn");
-		Node2D cloudInstance = (Node2D)cloud.Instance();
-		AddChild(cloudInstance);
-		
-		*/
+		PopulateClouds(prePopulate: true);
 	}
 
 	public override void _Process(float delta)
 	{
 		time++;
 		
-		if (time % 250 == 0)
+		if (time % 300 == 0)
 		{
-			var cloud = (PackedScene)ResourceLoader.Load("res://Components/Cloud.tscn");
-			Node2D cloudInstance = (Node2D)cloud.Instance();
-			AddChild(cloudInstance);
+			PopulateClouds(prePopulate: false);
 		}
 	}
 
@@ -54,5 +46,25 @@ public class Level1 : Node
 	private void On_RightButton_released()
 	{
 		((Player)GetNode("Player")).StopRotation();
+	}
+	
+	private void PopulateClouds(bool prePopulate)
+	{
+		if (prePopulate == false)
+		{
+			var cloud = (PackedScene)ResourceLoader.Load("res://Components/Cloud.tscn");
+			Cloud cloudInstance = (Cloud)cloud.Instance();
+			AddChild(cloudInstance);
+		}
+		else
+		{
+			for (int i = 0; i < 20; i++)
+			{
+				var cloud = (PackedScene)ResourceLoader.Load("res://Components/Cloud.tscn");
+				Cloud cloudInstance = (Cloud)cloud.Instance();
+				cloudInstance.RandomizePosition();
+				AddChild(cloudInstance);	
+			}
+		}
 	}
 }
