@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scripts/Titlescreen.cs" type="Script" id=1]
+[ext_resource path="res://Assets/Backgrounds/sky1.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Foregrounds/titlescreen_transparent.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Audio/Music/Komiku_-_01_-_Opening_.ogg" type="AudioStream" id=4]
+
+[node name="Titlescreen" type="Node2D"]
+position = Vector2( 472, 448 )
+script = ExtResource( 1 )
+
+[node name="StartGameButton" type="Button" parent="."]
+margin_left = 128.0
+margin_top = 192.0
+margin_right = 280.0
+margin_bottom = 248.0
+text = "Start Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 168, -88 )
+z_index = -2
+texture = ExtResource( 2 )
+
+[node name="Foreground" type="Sprite" parent="."]
+position = Vector2( 192, -88 )
+z_index = -1
+texture = ExtResource( 3 )
+
+[node name="CreditsButton" type="Button" parent="."]
+margin_left = 600.0
+margin_top = 192.0
+margin_right = 776.0
+margin_bottom = 248.0
+text = "Credits"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TitlescreenMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+autoplay = true
+[connection signal="pressed" from="StartGameButton" to="." method="_on_StartGameButton_pressed"]
+[connection signal="pressed" from="CreditsButton" to="." method="_on_CreditsButton_pressed"]

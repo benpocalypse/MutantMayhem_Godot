@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/Level1.cs" type="Script" id=1]
+[ext_resource path="res://Components/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Components/LevelControls.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Backgrounds/sky1.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Audio/Music/Komiku_-_12_-_Bicycle.ogg" type="AudioStream" id=6]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 368.0
+margin_top = 304.0
+margin_right = 1056.0
+margin_bottom = 608.0
+text = "Nothing!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 640, 358 )
+
+[node name="LevelControls" parent="." instance=ExtResource( 3 )]
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 640, 358 )
+z_index = -5
+texture = ExtResource( 4 )
+
+[node name="Level1Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 6 )
+autoplay = true
