@@ -1,2 +1,2 @@
-# MutantMayhem_Godot
-Implementing Mutant Mayhem in Godot.
+# Mutant Mayhem
+Implementing Mutant Mayhem, a game in the syle of Octogeddon, in Godot. 
