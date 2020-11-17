@@ -20,6 +20,9 @@ public class Generic2dGame : Node
 		Level3
 	};
 	
+	public const int ScreenWidth = 1280;
+	public const int ScreenHeight = 720;
+	
 	public Node CurrentSceneFile { get; set; }
 	//private Scenes CurrentScene = Scenes.Titlescreen;
 	private GameState CurrentGameState = GameState.NotInGame;

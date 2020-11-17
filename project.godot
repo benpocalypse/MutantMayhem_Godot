@@ -20,8 +20,8 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Generic2D"
-config/description="A pretty awful Octogeddon style game that my kids are making."
+config/name="Generic 2d"
+config/description="A pretty awful Octogeddon clone."
 run/main_scene="res://Scenes/Titlescreen.tscn"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
