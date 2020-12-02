@@ -21,9 +21,6 @@ public class Titlescreen : Node
 
 	private void _on_StartGameButton_pressed()
 	{
-		var label = (Button)GetNode("StartGameButton");
-		label.Text = "HELLO!";
-		
 		var game = (Generic2dGame)GetNode("/root/Generic2dGame");
 		game.GotoScene(Generic2dGame.Scenes.Level1);
 	}

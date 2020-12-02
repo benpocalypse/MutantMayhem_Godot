@@ -9,50 +9,53 @@ public class Bomb : Node2D
 		Left,
 		Right,
 		Bottom
-	}
+	};
 	
 	private Side entranceSide = Side.Top;
 	private float rotationSpeed = 0.0f;
 	private int startingX = 0;
 	private int startingY = 0;
 	private Random rnd = new Random();
-	
-	private Generic2dGame;
+	private Vector2 playerPosition = new Vector2(640, 360);
+	private Vector2 positionDifference;
+	float speed = 0.25f;
 	
 	public override void _Ready()
 	{
-		game = (Generic2dGame)GetNode("/root/Generic2dGame");
-		
 		entranceSide = ((Side)rnd.Next(0, 4));
-		rotationSpeed = ((float)rnd.Next(-5,5));
+		rotationSpeed = ((float)rnd.Next(-50,50))*0.1f;
 		
 		switch (entranceSide)
 		{
 			case Side.Top:
-				startingX = rnd.Next(0, game.ScreenWidth);
+				startingX = rnd.Next(0, Generic2dGame.ScreenWidth);
 				startingY = -80;
 				break;
 				
 			case Side.Left:;
 				startingX = -80;
-				startingY = rnd.Next(0, game.ScreenHeight);
+				startingY = rnd.Next(0, Generic2dGame.ScreenHeight);
 				break;
 				
 			case Side.Right:
-				startingX = game.ScreenWidth + 80;
-				startingY = rnd.Next(0, game.ScreenHeight);
+				startingX = Generic2dGame.ScreenWidth + 80;
+				startingY = rnd.Next(0, Generic2dGame.ScreenHeight);
 				break;
 		
 			case Side.Bottom:
-				startingX = rnd.Next(0, game.ScreenWidth);
-				startingY = game.ScreenHeight + 80;
+				startingX = rnd.Next(0, Generic2dGame.ScreenWidth);
+				startingY = Generic2dGame.ScreenHeight + 80;
 				break;
 		}
+		
+		this.SetPosition(new Vector2(startingX, startingY));
+		positionDifference = playerPosition - this.GetPosition();
 	}
 
 
 	public override void _Process(float delta)
 	{
-		  
+		this.Translate(positionDifference * speed * delta);
+		this.Rotate(rotationSpeed*delta);
 	}
 }

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Komiku_-_06_-_School.ogg-4082e062f612f243f76a8a290d9b5ac3.oggstr"
+
+[deps]
+
+source_file="res://Assets/Audio/Music/Komiku_-_06_-_School.ogg"
+dest_files=[ "res://.import/Komiku_-_06_-_School.ogg-4082e062f612f243f76a8a290d9b5ac3.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

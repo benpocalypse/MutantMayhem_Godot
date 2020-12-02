@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Komiku_-_05_-_Surfing.ogg-e70e490e8597428b2acc378fccc8cbda.oggstr"
+
+[deps]
+
+source_file="res://Assets/Audio/Music/Komiku_-_05_-_Surfing.ogg"
+dest_files=[ "res://.import/Komiku_-_05_-_Surfing.ogg-e70e490e8597428b2acc378fccc8cbda.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

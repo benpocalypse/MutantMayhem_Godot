@@ -22,24 +22,24 @@ animations = [ {
 "frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "default",
-"speed": 5.0
+"speed": 8.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=4]
 radius = 24.0
-height = 128.0
+height = 96.0
 
 [sub_resource type="SpriteFrames" id=5]
 animations = [ {
 "frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "default",
-"speed": 5.0
+"speed": 8.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=6]
 radius = 24.0
-height = 128.0
+height = 80.0
 
 [node name="Player" type="Node2D"]
 position = Vector2( -1, -39 )
@@ -63,6 +63,7 @@ flip_h = true
 [node name="LeftArmArea2D" type="Area2D" parent="LeftArm"]
 
 [node name="LeftArmCollisionShape2D" type="CollisionShape2D" parent="LeftArm/LeftArmArea2D"]
+position = Vector2( -15, 0 )
 rotation = 1.5708
 shape = SubResource( 4 )
 
@@ -73,6 +74,11 @@ frames = SubResource( 5 )
 [node name="RightArmArea2D" type="Area2D" parent="RightArm"]
 
 [node name="RightArmCollisionShape2D" type="CollisionShape2D" parent="RightArm/RightArmArea2D"]
+position = Vector2( 17, 0 )
 rotation = 1.5708
 shape = SubResource( 6 )
 [connection signal="area_entered" from="Head/HeadArea2D" to="." method="_on_HeadArea2D_area_entered"]
+[connection signal="area_entered" from="LeftArm/LeftArmArea2D" to="." method="_on_LeftArmArea2D_area_entered"]
+[connection signal="area_exited" from="LeftArm/LeftArmArea2D" to="." method="_on_LeftArmArea2D_area_exited"]
+[connection signal="area_entered" from="RightArm/RightArmArea2D" to="." method="_on_RightArmArea2D_area_entered"]
+[connection signal="area_exited" from="RightArm/RightArmArea2D" to="." method="_on_RightArmArea2D_area_exited"]

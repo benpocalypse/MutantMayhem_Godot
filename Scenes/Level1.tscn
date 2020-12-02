@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Level1.cs" type="Script" id=1]
 [ext_resource path="res://Components/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Components/LevelControls.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/Backgrounds/sky1.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Backgrounds/Mountains1.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Audio/Music/Komiku_-_12_-_Bicycle.ogg" type="AudioStream" id=6]
+[ext_resource path="res://Components/HUD.tscn" type="PackedScene" id=8]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
@@ -22,3 +24,10 @@ texture = ExtResource( 4 )
 [node name="Level1Music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 6 )
 autoplay = true
+
+[node name="Mountains1" type="Sprite" parent="."]
+position = Vector2( 640, 520 )
+z_index = -4
+texture = ExtResource( 5 )
+
+[node name="HUD" parent="." instance=ExtResource( 8 )]

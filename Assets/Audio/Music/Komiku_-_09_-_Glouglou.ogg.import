@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Komiku_-_09_-_Glouglou.ogg-a9a69a345579e2e18718d7ff5d83fe10.oggstr"
+
+[deps]
+
+source_file="res://Assets/Audio/Music/Komiku_-_09_-_Glouglou.ogg"
+dest_files=[ "res://.import/Komiku_-_09_-_Glouglou.ogg-a9a69a345579e2e18718d7ff5d83fe10.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

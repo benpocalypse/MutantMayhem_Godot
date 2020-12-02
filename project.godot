@@ -43,9 +43,18 @@ window/stretch/aspect="keep"
 
 singletons=[ "res://git_api.gdnlib" ]
 
+[global]
+
+editor=false
+monodevelop=true
+
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
+
+[mono]
+
+debugger_agent/wait_timeout=5000
 
 [rendering]
 

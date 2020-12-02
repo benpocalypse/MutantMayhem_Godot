@@ -9,9 +9,10 @@ public class Generic2dGame : Node
 		Playing,
 		Paused
 	};
-	
+
 	public enum Scenes
 	{
+		Unknown,
 		Titlescreen,
 		CharacterSelectScreen,
 		CreditsScreen,
@@ -19,18 +20,21 @@ public class Generic2dGame : Node
 		Level2,
 		Level3
 	};
-	
+
 	public const int ScreenWidth = 1280;
 	public const int ScreenHeight = 720;
-	
+
 	public Node CurrentSceneFile { get; set; }
-	//private Scenes CurrentScene = Scenes.Titlescreen;
+	private Scenes CurrentScene = Scenes.Unknown;
 	private GameState CurrentGameState = GameState.NotInGame;
 
 	public override void _Ready()
 	{
 		Viewport root = GetTree().GetRoot();
 		CurrentSceneFile = root.GetChild(root.GetChildCount() - 1);
+
+		Scenes CurrentScene = Scenes.Unknown;
+		Scenes NextScene = Scenes.Titlescreen;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -38,8 +42,89 @@ public class Generic2dGame : Node
 	{
 
 	}
-	
-	public void GotoScene(Scenes _scene)
+
+	private void ProcessSceneExit(Scenes _scene)
+	{
+		switch (_scene)
+		{
+			case Scenes.Unknown:
+				break;
+
+			case Scenes.Titlescreen:
+				break;
+
+			case Scenes.CharacterSelectScreen:
+				break;
+
+			case Scenes.CreditsScreen:
+				break;
+
+			case Scenes.Level1:
+				break;
+
+			case Scenes.Level2:
+				break;
+
+			case Scenes.Level3:
+				break;
+		}
+	}
+
+	private void ProcessSceneEntry(Scenes _scene)
+	{
+		switch (_scene)
+		{
+			case Scenes.Unknown:
+				break;
+
+			case Scenes.Titlescreen:
+				break;
+
+			case Scenes.CharacterSelectScreen:
+				break;
+
+			case Scenes.CreditsScreen:
+				break;
+
+			case Scenes.Level1:
+				break;
+
+			case Scenes.Level2:
+				break;
+
+			case Scenes.Level3:
+				break;
+		}
+	}
+
+	private void ProcessScene(Scenes _scene)
+	{
+		switch (_scene)
+		{
+			case Scenes.Unknown:
+				break;
+
+			case Scenes.Titlescreen:
+				break;
+
+			case Scenes.CharacterSelectScreen:
+				break;
+
+			case Scenes.CreditsScreen:
+				break;
+
+			case Scenes.Level1:
+				break;
+
+			case Scenes.Level2:
+				break;
+
+			case Scenes.Level3:
+				break;
+		}
+	}
+
+	public void GotoScene(Scenes nextScene)
 	{
 		// This function will usually be called from a signal callback,
 		// or some other function from the current scene.
@@ -50,7 +135,16 @@ public class Generic2dGame : Node
 		// The solution is to defer the load to a later time, when
 		// we can be sure that no code from the current scene is running:
 
-		CallDeferred(nameof(DeferredGotoScene), "res://Scenes/" + _scene.ToString() + ".tscn");
+		if (nextScene != CurrentScene)
+		{
+			ProcessSceneExit(CurrentScene);
+			ProcessSceneEntry(nextScene);
+			CurrentScene = nextScene;
+		}
+
+		ProcessScene(CurrentScene);
+
+		CallDeferred(nameof(DeferredGotoScene), "res://Scenes/" + nextScene.ToString() + ".tscn");
 	}
 
 	public void DeferredGotoScene(string path)
@@ -70,4 +164,6 @@ public class Generic2dGame : Node
 		// Optionally, to make it compatible with the SceneTree.change_scene() API.
 		GetTree().SetCurrentScene(CurrentSceneFile);
 	}
+
+
 }

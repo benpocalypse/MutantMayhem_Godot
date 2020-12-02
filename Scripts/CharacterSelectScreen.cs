@@ -3,7 +3,7 @@ using System;
 
 public class CharacterSelectScreen : Node2D
 {
-	Generic2dGame game;
+	private Generic2dGame game;
 
 	public override void _Ready()
 	{
@@ -18,7 +18,6 @@ public class CharacterSelectScreen : Node2D
 
 	private void _on_StartGameButton_pressed()
 	{
-		var game = (Generic2dGame)GetNode("/root/Generic2dGame");
 		game.GotoScene(Generic2dGame.Scenes.Level1);
 	}
 }
