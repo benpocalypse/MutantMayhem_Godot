@@ -37,7 +37,7 @@ public class Level1 : Node
 		{
 			AddBomb();
 
-			if (difficulty > 10)
+			if (difficulty > 40)
 			{
 				difficulty -= 5;
 			}
@@ -71,7 +71,8 @@ public class Level1 : Node
 
 	private void Player_Died()
 	{
-		game.GotoScene(Generic2dGame.Scenes.Titlescreen);
+		game.PlayerScore = ((HUD)GetNode("HUD")).GetCoins();
+		game.GotoScene(Generic2dGame.Scenes.Gameover);
 	}
 
 	private void PopulateClouds(bool prePopulate)

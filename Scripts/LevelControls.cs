@@ -21,12 +21,28 @@ public class LevelControls : Node2D
 
 	}
 
-/*
 	public override void _Process(float delta)
 	{
+		if (Input.IsActionJustPressed("ui_left"))
+		{
+			_on_LeftButton_pressed();
+		}
 
+		if (Input.IsActionJustReleased("ui_left"))
+		{
+			_on_LeftButton_released();
+		}
+
+		if (Input.IsActionJustPressed("ui_right"))
+		{
+			_on_RightButton_pressed();
+		}
+
+		if (Input.IsActionJustReleased("ui_right"))
+		{
+			_on_RightButton_released();
+		}
 	}
-*/
 
 	public void _on_LeftButton_pressed()
 	{

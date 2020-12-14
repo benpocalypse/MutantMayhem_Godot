@@ -8,6 +8,8 @@ public class HUD : Node2D
 	private int maxHealth = 3;
 	private int currentHealth = 3;
 	private int coins = 0;
+	private int coinAnimationCounter = 0;
+	private float scaleFactor = 1.0f;
 
 	[Signal]
 	public delegate void PlayerDied();
@@ -17,12 +19,25 @@ public class HUD : Node2D
 		InitializeHud();
 	}
 
-/*
 	public override void _Process(float delta)
 	{
+		if (coinAnimationCounter > 0)
+		{
+			var moneyBag = (Sprite)GetNode("MoneyBag");
+			scaleFactor += 0.2f;
+			var factor = ((float)Math.Sin(((double)scaleFactor)));
 
+			moneyBag.ApplyScale(new Vector2(1 + (factor/30), 1 + (factor/30)));
+
+			coinAnimationCounter--;
+		}
+		else
+		{
+			var moneyBag = (Sprite)GetNode("MoneyBag");
+			scaleFactor = 1.0f;
+			moneyBag.ApplyScale(new Vector2(1.0f, 1.0f));
+		}
 	}
-*/
 
 	private void InitializeHud()//int _currentHealth, int _maxHealth, int _coins)
 	{
@@ -76,5 +91,21 @@ public class HUD : Node2D
 		{
 			currentHealth++;
 		}
+	}
+
+	public void AddCoin(int amount)
+	{
+		coins += amount;
+		((RichTextLabel)this.GetNode("MoneyText")).BbcodeText = $"[right]{coins}[/right]";
+	}
+
+	public int GetCoins()
+	{
+		return coins;
+	}
+
+	private void _on_Area2D_area_entered(object area)
+	{
+		coinAnimationCounter = 50;
 	}
 }

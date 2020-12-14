@@ -20,5 +20,9 @@ public class CharacterSelectScreen : Node2D
 	{
 		game.GotoScene(Generic2dGame.Scenes.Level1);
 	}
+	
+	private void _on_AudioStreamPlayer2D_finished()
+	{
+		// Replace with function body.
+	}
 }
-

@@ -17,12 +17,17 @@ public class Generic2dGame : Node
 		CharacterSelectScreen,
 		CreditsScreen,
 		Level1,
-		Level2,
-		Level3
+		//Level2,
+		//Level3,
+		Gameover
 	};
 
 	public const int ScreenWidth = 1280;
 	public const int ScreenHeight = 720;
+
+	public readonly Vector2 MoneyBagLocation = new Vector2(1200, 56);
+
+	public int PlayerScore = 0;
 
 	public Node CurrentSceneFile { get; set; }
 	private Scenes CurrentScene = Scenes.Unknown;
@@ -60,12 +65,10 @@ public class Generic2dGame : Node
 				break;
 
 			case Scenes.Level1:
+				//PlayerScore = ((HUD)this.GetNode("HUD")).GetCoins();
 				break;
 
-			case Scenes.Level2:
-				break;
-
-			case Scenes.Level3:
+			case Scenes.Gameover:
 				break;
 		}
 	}
@@ -89,10 +92,8 @@ public class Generic2dGame : Node
 			case Scenes.Level1:
 				break;
 
-			case Scenes.Level2:
-				break;
-
-			case Scenes.Level3:
+			case Scenes.Gameover:
+				//((Gameover)this.GetNode("Gameover")).SetScore(PlayerScore);
 				break;
 		}
 	}
@@ -116,10 +117,7 @@ public class Generic2dGame : Node
 			case Scenes.Level1:
 				break;
 
-			case Scenes.Level2:
-				break;
-
-			case Scenes.Level3:
+			case Scenes.Gameover:
 				break;
 		}
 	}
