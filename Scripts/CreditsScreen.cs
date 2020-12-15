@@ -8,11 +8,13 @@ public class CreditsScreen : Node2D
 
 	}
 
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//
-//  }
+	public override void _Process(float delta)
+	{
+		if (Input.IsActionJustReleased("ui_left") || Input.IsActionJustPressed("ui_accept") )
+		{
+			_on_BackButton_pressed();
+		}
+	}
 
 	private void _on_BackButton_pressed()
 	{

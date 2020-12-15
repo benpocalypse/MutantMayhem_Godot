@@ -10,6 +10,14 @@ public class Gameover : Node2D
 		game = (Generic2dGame)GetNode("/root/Generic2dGame");
 		((RichTextLabel)this.GetNode("ScoreText")).BbcodeText = $"Final Score:  {game.PlayerScore}";
 	}
+	
+	public override void _Process(float delta)
+	{
+		if (Input.IsActionJustReleased("ui_left") || Input.IsActionJustPressed("ui_accept") )
+		{
+			_on_Button_button_down();
+		}
+	}
 
 	private void _on_Button_button_down()
 	{

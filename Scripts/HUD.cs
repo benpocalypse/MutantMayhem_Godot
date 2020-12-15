@@ -10,6 +10,7 @@ public class HUD : Node2D
 	private int coins = 0;
 	private int coinAnimationCounter = 0;
 	private float scaleFactor = 1.0f;
+	private Vector2 moneyBagOriginalScale;
 
 	[Signal]
 	public delegate void PlayerDied();
@@ -17,6 +18,8 @@ public class HUD : Node2D
 	public override void _Ready()
 	{
 		InitializeHud();
+		
+		moneyBagOriginalScale = ((Sprite)GetNode("MoneyBag")).Scale;
 	}
 
 	public override void _Process(float delta)
@@ -35,7 +38,7 @@ public class HUD : Node2D
 		{
 			var moneyBag = (Sprite)GetNode("MoneyBag");
 			scaleFactor = 1.0f;
-			moneyBag.ApplyScale(new Vector2(1.0f, 1.0f));
+			moneyBag.SetScale(moneyBagOriginalScale);
 		}
 	}
 
@@ -95,8 +98,8 @@ public class HUD : Node2D
 
 	public void AddCoin(int amount)
 	{
+		coinAnimationCounter = 50;
 		coins += amount;
-		((RichTextLabel)this.GetNode("MoneyText")).BbcodeText = $"[right]{coins}[/right]";
 	}
 
 	public int GetCoins()
@@ -106,6 +109,7 @@ public class HUD : Node2D
 
 	private void _on_Area2D_area_entered(object area)
 	{
-		coinAnimationCounter = 50;
+		coinAnimationCounter = 0;
+		((RichTextLabel)this.GetNode("MoneyText")).BbcodeText = $"[right]{coins}[/right]";
 	}
 }

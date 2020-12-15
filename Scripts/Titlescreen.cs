@@ -20,6 +20,16 @@ public class Titlescreen : Node
 		var factor = ((float)Math.Sin(((double)scaleFactor)));
 
 		foreground.ApplyScale(new Vector2(1 + (factor/200), 1 + (factor/200)));
+		
+		if (Input.IsActionJustPressed("ui_accept"))
+		{
+			_on_StartGameButton_pressed();
+		}
+
+		if (Input.IsActionJustReleased("ui_left"))
+		{
+			_on_CreditsButton_pressed();
+		}
 	}
 
 	private void _on_StartGameButton_pressed()

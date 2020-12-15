@@ -4,10 +4,10 @@
 [ext_resource path="res://Assets/Misc/HUD/MoneyBag.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Fonts/Crayawn-v58y.ttf" type="DynamicFontData" id=3]
 
-[sub_resource type="CapsuleShape2D" id=2]
+[sub_resource type="CapsuleShape2D" id=1]
 radius = 32.0
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=2]
 size = 64
 outline_size = 1
 font_data = ExtResource( 3 )
@@ -25,14 +25,14 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MoneyBag/Area2D"]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="MoneyText" type="RichTextLabel" parent="."]
 margin_left = 848.0
 margin_top = 40.0
 margin_right = 1144.0
 margin_bottom = 96.0
-custom_fonts/normal_font = SubResource( 1 )
+custom_fonts/normal_font = SubResource( 2 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
 bbcode_text = "[right]0[/right]"
