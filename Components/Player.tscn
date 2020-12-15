@@ -84,7 +84,5 @@ stream = ExtResource( 6 )
 [connection signal="area_entered" from="Head/HeadArea2D" to="." method="_on_HeadArea2D_area_entered"]
 [connection signal="animation_finished" from="LeftArm" to="." method="_on_LeftArm_animation_finished"]
 [connection signal="area_entered" from="LeftArm/LeftArmArea2D" to="." method="_on_LeftArmArea2D_area_entered"]
-[connection signal="area_exited" from="LeftArm/LeftArmArea2D" to="." method="_on_LeftArmArea2D_area_exited"]
 [connection signal="animation_finished" from="RightArm" to="." method="_on_RightArm_animation_finished"]
 [connection signal="area_entered" from="RightArm/RightArmArea2D" to="." method="_on_RightArmArea2D_area_entered"]
-[connection signal="area_exited" from="RightArm/RightArmArea2D" to="." method="_on_RightArmArea2D_area_exited"]

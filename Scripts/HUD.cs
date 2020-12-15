@@ -18,7 +18,7 @@ public class HUD : Node2D
 	public override void _Ready()
 	{
 		InitializeHud();
-		
+
 		moneyBagOriginalScale = ((Sprite)GetNode("MoneyBag")).Scale;
 	}
 
@@ -70,7 +70,7 @@ public class HUD : Node2D
 	{
 		if (currentHealth > 1)
 		{
-			GetNode("Heart" + currentHealth.ToString()).QueueFree();
+			GetNode("Heart" + currentHealth.ToString()).CallDeferred("free");
 
 			var heart = (PackedScene)ResourceLoader.Load("res://Components/Heart.tscn");
 			Heart heartInstance = (Heart)heart.Instance();

@@ -28,6 +28,8 @@ public class Generic2dGame : Node
 	public readonly Vector2 MoneyBagLocation = new Vector2(1200, 56);
 
 	public int PlayerScore = 0;
+	public int LeftArmDamage = 1;
+	public int RightArmDamage = 1;
 
 	public Node CurrentSceneFile { get; set; }
 	private Scenes CurrentScene = Scenes.Unknown;

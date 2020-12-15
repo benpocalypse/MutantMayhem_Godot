@@ -15,10 +15,7 @@ public class Player : Node2D
 	private string previousRotationDirection = string.Empty;
 
 	[Signal]
-	public delegate void LeftArmHit();
-
-	[Signal]
-	public delegate void RightArmHit();
+	public delegate void ArmHit(int damage, string guid);
 
 	[Signal]
 	public delegate void HeadHit();
@@ -108,85 +105,24 @@ public class Player : Node2D
 		this.GetNode<AudioStreamPlayer2D>("DamageSound").Play();
 
 		EmitSignal(nameof(HeadHit));
-		area.GetParent().GetParent().QueueFree();
 	}
 
 	private void _on_RightArmArea2D_area_entered(Area2D area)
 	{
 		this.GetNode<AnimatedSprite>("RightArm").Play("default", false);
 
-		var explosion = (PackedScene)ResourceLoader.Load("res://Components/Explosion.tscn");
-		Node2D explosionInstance = (Node2D)explosion.Instance();
-		var position = ((Node2D)area.GetParent().GetParent()).GlobalPosition;
-		explosionInstance.SetPosition(position);
-		this.GetParent().AddChild(explosionInstance);
+		var node = ((Bomb)area.GetParent().GetParent());
 
-		var coin = (PackedScene)ResourceLoader.Load("res://Components/Coin.tscn");
-
-		Coin coinInstance = (Coin)coin.Instance();
-		coinInstance.SetPosition(position);
-		var hud = area.GetParent().GetParent().GetParent().GetNode("HUD");
-
-		if (rnd.NextDouble() < 0.90)
-		{
-			coinInstance.SetValue(1);
-			((HUD)hud).AddCoin(1);
-		}
-		else
-		{
-			coinInstance.SetValue(5);
-			((HUD)hud).AddCoin(5);
-		}
-
-		this.GetParent().AddChild(coinInstance);
-
-		EmitSignal(nameof(RightArmHit));
-		area.GetParent().GetParent().QueueFree();
-	}
-
-	private void _on_RightArmArea2D_area_exited(object area)
-	{
-		//this.GetNode<AnimatedSprite>("RightArm").Stop();
-		//this.GetNode<AnimatedSprite>("RightArm").SetFrame(0);
+		EmitSignal(nameof(ArmHit), game.RightArmDamage, node.NodeGuid.ToString());
 	}
 
 	private void _on_LeftArmArea2D_area_entered(Area2D area)
 	{
 		this.GetNode<AnimatedSprite>("LeftArm").Play("default", false);
 
-		var explosion = (PackedScene)ResourceLoader.Load("res://Components/Explosion.tscn");
-		Node2D explosionInstance = (Node2D)explosion.Instance();
-		var position = ((Node2D)area.GetParent().GetParent()).GlobalPosition;
-		explosionInstance.SetPosition(position);
-		this.GetParent().AddChild(explosionInstance);
+		var node = ((Bomb)area.GetParent().GetParent());
 
-		var coin = (PackedScene)ResourceLoader.Load("res://Components/Coin.tscn");
-
-		Coin coinInstance = (Coin)coin.Instance();
-		coinInstance.SetPosition(position);
-		var hud = area.GetParent().GetParent().GetParent().GetNode("HUD");
-
-		if (rnd.NextDouble() < 0.90)
-		{
-			coinInstance.SetValue(1);
-			((HUD)hud).AddCoin(1);
-		}
-		else
-		{
-			coinInstance.SetValue(5);
-			((HUD)hud).AddCoin(5);
-		}
-
-		this.GetParent().AddChild(coinInstance);
-
-		EmitSignal(nameof(LeftArmHit));
-		area.GetParent().GetParent().QueueFree();
-	}
-
-	private void _on_LeftArmArea2D_area_exited(object area)
-	{
-		//this.GetNode<AnimatedSprite>("LeftArm").Stop();
-		//this.GetNode<AnimatedSprite>("LeftArm").SetFrame(0);
+		EmitSignal(nameof(ArmHit), game.LeftArmDamage, node.NodeGuid.ToString());
 	}
 
 	private void _on_LeftArm_animation_finished()

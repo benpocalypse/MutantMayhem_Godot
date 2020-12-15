@@ -12,7 +12,8 @@ public class Explosion : AnimatedSprite
 
 	private void _on_AnimatedSprite_animation_finished()
 	{
-		this.GetParent().QueueFree();
+		this.Visible = false;
+		CallDeferred("free");
 	}
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.

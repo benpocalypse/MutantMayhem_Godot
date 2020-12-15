@@ -98,7 +98,7 @@ public class Level1 : Node
 	private void AddBomb()
 	{
 		var bomb = (PackedScene)ResourceLoader.Load("res://Components/Bomb.tscn");
-			Bomb bombInstance = (Bomb)bomb.Instance();
-			AddChild(bombInstance);
+		Bomb bombInstance = (Bomb)bomb.Instance();
+		AddChild(bombInstance);
 	}
 }
