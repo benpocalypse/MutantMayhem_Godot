@@ -32,97 +32,19 @@ public class Generic2dGame : Node
 	public int RightArmDamage = 1;
 
 	public Node CurrentSceneFile { get; set; }
-	private Scenes CurrentScene = Scenes.Unknown;
-	private GameState CurrentGameState = GameState.NotInGame;
 
 	public override void _Ready()
 	{
-		Viewport root = GetTree().GetRoot();
+		Viewport root = GetTree().Root;
 		CurrentSceneFile = root.GetChild(root.GetChildCount() - 1);
-
-		Scenes CurrentScene = Scenes.Unknown;
-		Scenes NextScene = Scenes.Titlescreen;
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
+/*
 	public override void _Process(float delta)
 	{
 
 	}
-
-	private void ProcessSceneExit(Scenes _scene)
-	{
-		switch (_scene)
-		{
-			case Scenes.Unknown:
-				break;
-
-			case Scenes.Titlescreen:
-				break;
-
-			case Scenes.CharacterSelectScreen:
-				break;
-
-			case Scenes.CreditsScreen:
-				break;
-
-			case Scenes.Level1:
-				//PlayerScore = ((HUD)this.GetNode("HUD")).GetCoins();
-				break;
-
-			case Scenes.Gameover:
-				break;
-		}
-	}
-
-	private void ProcessSceneEntry(Scenes _scene)
-	{
-		switch (_scene)
-		{
-			case Scenes.Unknown:
-				break;
-
-			case Scenes.Titlescreen:
-				break;
-
-			case Scenes.CharacterSelectScreen:
-				break;
-
-			case Scenes.CreditsScreen:
-				break;
-
-			case Scenes.Level1:
-				break;
-
-			case Scenes.Gameover:
-				//((Gameover)this.GetNode("Gameover")).SetScore(PlayerScore);
-				break;
-		}
-	}
-
-	private void ProcessScene(Scenes _scene)
-	{
-		switch (_scene)
-		{
-			case Scenes.Unknown:
-				break;
-
-			case Scenes.Titlescreen:
-				break;
-
-			case Scenes.CharacterSelectScreen:
-				break;
-
-			case Scenes.CreditsScreen:
-				break;
-
-			case Scenes.Level1:
-				break;
-
-			case Scenes.Gameover:
-				break;
-		}
-	}
+*/
 
 	public void GotoScene(Scenes nextScene)
 	{
@@ -134,16 +56,6 @@ public class Generic2dGame : Node
 
 		// The solution is to defer the load to a later time, when
 		// we can be sure that no code from the current scene is running:
-
-		if (nextScene != CurrentScene)
-		{
-			ProcessSceneExit(CurrentScene);
-			ProcessSceneEntry(nextScene);
-			CurrentScene = nextScene;
-		}
-
-		ProcessScene(CurrentScene);
-
 		CallDeferred(nameof(DeferredGotoScene), "res://Scenes/" + nextScene.ToString() + ".tscn");
 	}
 
@@ -159,10 +71,10 @@ public class Generic2dGame : Node
 		CurrentSceneFile = nextScene.Instance();
 
 		// Add it to the active scene, as child of root.
-		GetTree().GetRoot().AddChild(CurrentSceneFile);
+		GetTree().Root.AddChild(CurrentSceneFile);
 
 		// Optionally, to make it compatible with the SceneTree.change_scene() API.
-		GetTree().SetCurrentScene(CurrentSceneFile);
+		GetTree().CurrentScene = CurrentSceneFile;
 	}
 
 

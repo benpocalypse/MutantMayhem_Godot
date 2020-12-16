@@ -15,7 +15,7 @@ public class Player : Node2D
 	private string previousRotationDirection = string.Empty;
 
 	[Signal]
-	public delegate void ArmHit(int damage, string guid);
+	public delegate void Hit(int damage, string guid);
 
 	[Signal]
 	public delegate void HeadHit();
@@ -66,7 +66,7 @@ public class Player : Node2D
 
 			rotationInDegrees -= rotationAcceleration;
 
-			this.SetRotationDegrees(rotationInDegrees);
+			this.RotationDegrees = rotationInDegrees;
 		}
 
 		if (rotatingRight == true)
@@ -78,7 +78,7 @@ public class Player : Node2D
 
 			rotationInDegrees += rotationAcceleration;
 
-			this.SetRotationDegrees(rotationInDegrees);
+			this.RotationDegrees = rotationInDegrees;
 		}
 
 		if (rotatingLeft == false && rotatingRight == false &&
@@ -90,7 +90,7 @@ public class Player : Node2D
 				-rotationAcceleration :
 				rotationAcceleration;
 
-			this.SetRotationDegrees(rotationInDegrees);
+			this.RotationDegrees = rotationInDegrees;
 		}
 	}
 
@@ -99,11 +99,14 @@ public class Player : Node2D
 		var explosion = (PackedScene)ResourceLoader.Load("res://Components/Explosion.tscn");
 		Node2D explosionInstance = (Node2D)explosion.Instance();
 		var position = ((Node2D)area.GetParent().GetParent()).GlobalPosition;
-		explosionInstance.SetPosition(position);
+		explosionInstance.Position = position;
 		this.GetParent().AddChild(explosionInstance);
 
 		this.GetNode<AudioStreamPlayer2D>("DamageSound").Play();
 
+		var node = ((IEnemy)area.GetParent().GetParent());
+
+		EmitSignal(nameof(Hit), 10000, node.NodeGuid.ToString());
 		EmitSignal(nameof(HeadHit));
 	}
 
@@ -111,29 +114,29 @@ public class Player : Node2D
 	{
 		this.GetNode<AnimatedSprite>("RightArm").Play("default", false);
 
-		var node = ((Bomb)area.GetParent().GetParent());
+		var node = ((IEnemy)area.GetParent().GetParent());
 
-		EmitSignal(nameof(ArmHit), game.RightArmDamage, node.NodeGuid.ToString());
+		EmitSignal(nameof(Hit), game.RightArmDamage, node.NodeGuid.ToString());
 	}
 
 	private void _on_LeftArmArea2D_area_entered(Area2D area)
 	{
 		this.GetNode<AnimatedSprite>("LeftArm").Play("default", false);
 
-		var node = ((Bomb)area.GetParent().GetParent());
+		var node = ((IEnemy)area.GetParent().GetParent());
 
-		EmitSignal(nameof(ArmHit), game.LeftArmDamage, node.NodeGuid.ToString());
+		EmitSignal(nameof(Hit), game.LeftArmDamage, node.NodeGuid.ToString());
 	}
 
 	private void _on_LeftArm_animation_finished()
 	{
 		this.GetNode<AnimatedSprite>("LeftArm").Stop();
-		this.GetNode<AnimatedSprite>("LeftArm").SetFrame(0);
+		this.GetNode<AnimatedSprite>("LeftArm").Frame = 0;
 	}
 
 	private void _on_RightArm_animation_finished()
 	{
 		this.GetNode<AnimatedSprite>("RightArm").Stop();
-		this.GetNode<AnimatedSprite>("RightArm").SetFrame(0);
+		this.GetNode<AnimatedSprite>("RightArm").Frame = 0;
 	}
 }

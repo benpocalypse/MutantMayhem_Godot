@@ -20,7 +20,7 @@ public class Cloud : Node2D
 	{
 		this.Translate(new Vector2((speed*delta), 0));
 
-		if (this.GetPosition().x < -200)
+		if (this.Position.x < -200)
 		{
 			CallDeferred("free");
 		}

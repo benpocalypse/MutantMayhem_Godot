@@ -35,7 +35,7 @@ public class Level1 : Node
 
 		if (time % difficulty == 0)
 		{
-			AddBomb();
+			AddDirectAttackEnemy();
 
 			if (difficulty > 40)
 			{
@@ -95,10 +95,10 @@ public class Level1 : Node
 		}
 	}
 
-	private void AddBomb()
+	private void AddDirectAttackEnemy()
 	{
-		var bomb = (PackedScene)ResourceLoader.Load("res://Components/Bomb.tscn");
-		Bomb bombInstance = (Bomb)bomb.Instance();
-		AddChild(bombInstance);
+		var dae = (PackedScene)ResourceLoader.Load("res://Components/DirectAttackEnemy.tscn");
+		DirectAttackEnemy daeInstance = (DirectAttackEnemy)dae.Instance();
+		AddChild(daeInstance);
 	}
 }

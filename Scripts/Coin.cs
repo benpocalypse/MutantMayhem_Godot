@@ -13,7 +13,7 @@ public class Coin : Node2D
 	{
 		game = (Generic2dGame)GetNode("/root/Generic2dGame");
 		moneyBagPosition = game.MoneyBagLocation;
-		positionDifference = moneyBagPosition - this.GetPosition();
+		positionDifference = moneyBagPosition - this.Position;
 	}
 
 	public override void _Process(float delta)
@@ -32,16 +32,16 @@ public class Coin : Node2D
 		hasHitMoneyBag = true;
 		this.GetNode<Sprite>("Sprite").Visible = false;
 	}
-	
+
 	private void _on_CoinSound_finished()
 	{
 		CallDeferred("free");
 	}
-	
+
 	public void SetValue(int value)
 	{
 		var sprite = ((Sprite)this.GetNode("Sprite"));
-		
+
 		if (value == 5)
 		{
 			sprite.Texture = ((Texture)GD.Load("res://Assets/Misc/Collectibles/Coin1.png"));

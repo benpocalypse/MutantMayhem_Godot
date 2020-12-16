@@ -38,7 +38,7 @@ public class HUD : Node2D
 		{
 			var moneyBag = (Sprite)GetNode("MoneyBag");
 			scaleFactor = 1.0f;
-			moneyBag.SetScale(moneyBagOriginalScale);
+			moneyBag.Scale = moneyBagOriginalScale;
 		}
 	}
 
@@ -98,7 +98,6 @@ public class HUD : Node2D
 
 	public void AddCoin(int amount)
 	{
-		coinAnimationCounter = 50;
 		coins += amount;
 	}
 
@@ -109,7 +108,7 @@ public class HUD : Node2D
 
 	private void _on_Area2D_area_entered(object area)
 	{
-		coinAnimationCounter = 0;
+		coinAnimationCounter = 50;
 		((RichTextLabel)this.GetNode("MoneyText")).BbcodeText = $"[right]{coins}[/right]";
 	}
 }
