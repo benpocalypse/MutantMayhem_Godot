@@ -73,8 +73,6 @@ public class DirectAttackEnemy : IEnemy
 			{
 				Hit(DamageToTake, NodeGuid.ToString());
 			}
-
-			HitCoolDownTimer = 0.0f;
 		}
 
 		if (HitAnimationTimer > 0.0f)

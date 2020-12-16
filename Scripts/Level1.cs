@@ -5,8 +5,9 @@ public class Level1 : Node
 {
 	private ulong time = 0;
 	private ulong difficulty = 200;
+	private Random Rnd = new Random();
 
-	Generic2dGame game;
+	private Generic2dGame game;
 
 	public override void _Ready()
 	{
@@ -35,9 +36,16 @@ public class Level1 : Node
 
 		if (time % difficulty == 0)
 		{
-			AddDirectAttackEnemy();
+			if (Rnd.NextDouble() < 0.85)
+			{
+				AddDirectAttackEnemy();
+			}
+			else
+			{
+				AddCircularAttackEnemey();
+			}
 
-			if (difficulty > 40)
+			if (difficulty > 70)
 			{
 				difficulty -= 5;
 			}
@@ -100,5 +108,12 @@ public class Level1 : Node
 		var dae = (PackedScene)ResourceLoader.Load("res://Components/DirectAttackEnemy.tscn");
 		DirectAttackEnemy daeInstance = (DirectAttackEnemy)dae.Instance();
 		AddChild(daeInstance);
+	}
+
+	private void AddCircularAttackEnemey()
+	{
+		var cae = (PackedScene)ResourceLoader.Load("res://Components/CircularAttackEnemey.tscn");
+		CircularAttackEnemey caeInstance = (CircularAttackEnemey)cae.Instance();
+		AddChild(caeInstance);
 	}
 }
