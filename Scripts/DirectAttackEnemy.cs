@@ -38,17 +38,6 @@ public class DirectAttackEnemy : IEnemy
 				break;
 		}
 
-		if (Rnd.NextDouble() < 0.8)
-		{
-			((Sprite)this.GetNode("Sprite")).Texture = ((Texture)GD.Load("res://Assets/Enemies/Bomb1.png"));
-			Health = 1;
-		}
-		else
-		{
-			((Sprite)this.GetNode("Sprite")).Texture = ((Texture)GD.Load("res://Assets/Enemies/Potion1.png"));
-			Health = 2;
-		}
-
 		Position = new Vector2(StartingX, StartingY);
 		positionDifference = playerPosition - this.Position;
 
@@ -87,6 +76,28 @@ public class DirectAttackEnemy : IEnemy
 			HitAnimationTimer = 0.0f;
 			var sprite = this.GetNode<Sprite>("Sprite");
 			sprite.SelfModulate = new Color(1, 1, 1);
+		}
+	}
+
+	public void SetVariety(int variety)
+	{
+		switch (variety)
+		{
+			case 1:
+				((Sprite)this.GetNode("Sprite")).Texture = ((Texture)GD.Load("res://Assets/Enemies/Bomb1.png"));
+				Health = 1;
+				break;
+
+			case 2:
+				((Sprite)this.GetNode("Sprite")).Texture = ((Texture)GD.Load("res://Assets/Enemies/Potion1.png"));
+				Health = 2;
+				speed = 0.22f;
+				break;
+
+			default:
+				((Sprite)this.GetNode("Sprite")).Texture = ((Texture)GD.Load("res://Assets/Enemies/Bomb1.png"));
+				Health = 1;
+				break;
 		}
 	}
 

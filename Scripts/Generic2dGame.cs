@@ -31,6 +31,8 @@ public class Generic2dGame : Node
 	public int LeftArmDamage = 1;
 	public int RightArmDamage = 1;
 
+	public ulong Level1TimeLimit = 7200;
+
 	public Node CurrentSceneFile { get; set; }
 
 	public override void _Ready()

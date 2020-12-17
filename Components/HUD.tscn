@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/HUD.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Misc/HUD/MoneyBag.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Fonts/Crayawn-v58y.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Assets/Misc/HUD/PauseButton.png" type="Texture" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 32.0
@@ -10,6 +11,8 @@ radius = 32.0
 [sub_resource type="DynamicFont" id=2]
 size = 64
 outline_size = 1
+use_mipmaps = true
+use_filter = true
 font_data = ExtResource( 3 )
 
 [node name="HUD" type="Node2D"]
@@ -41,4 +44,21 @@ scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="BlackPolygon" type="Polygon2D" parent="."]
+visible = false
+z_index = 4
+color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 0, 0, 1280, 0, 1280, 720, 0, 720 )
+
+[node name="TextureButton" type="TextureButton" parent="."]
+margin_left = 40.0
+margin_top = 608.0
+margin_right = 115.0
+margin_bottom = 683.0
+texture_normal = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="area_entered" from="MoneyBag/Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="button_down" from="TextureButton" to="." method="_on_TextureButton_button_down"]

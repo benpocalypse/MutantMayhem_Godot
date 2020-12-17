@@ -4,7 +4,9 @@ using System;
 public class Level1 : Node
 {
 	private ulong time = 0;
-	private ulong difficulty = 200;
+	private ulong addSpeed = 3;
+	private float ticks = 0.0f;
+	private int numEnemies = 0;
 	private Random Rnd = new Random();
 
 	private Generic2dGame game;
@@ -27,28 +29,87 @@ public class Level1 : Node
 
 	public override void _Process(float delta)
 	{
-		time++;
+		ticks += delta;
 
-		if (time % 300 == 0)
+		if (ticks > 1.0f)
+		{
+			time++;
+			ticks = 0.0f;
+		}
+
+		if (((time % 3) == 0) && (ticks == 0.0f))
 		{
 			PopulateClouds(prePopulate: false);
 		}
 
-		if (time % difficulty == 0)
+		if (((time % addSpeed) == 0) && (ticks == 0.0f))
 		{
-			if (Rnd.NextDouble() < 0.85)
+			if (numEnemies < 10)
 			{
-				AddDirectAttackEnemy();
+				AddDirectAttackEnemy(1);
+			}
+			else if ((numEnemies >= 10) && (numEnemies < 11))
+			{
+				if (Rnd.NextDouble() < 0.8)
+				{
+					AddDirectAttackEnemy(1);
+				}
+				else
+				{
+					AddDirectAttackEnemy(2);
+				}
+				addSpeed -= 1;
+			}
+			else if (numEnemies < 20)
+			{
+				if (Rnd.NextDouble() < 0.8)
+				{
+					AddDirectAttackEnemy(1);
+				}
+				else
+				{
+					AddDirectAttackEnemy(2);
+				}
+			}
+			else if ((numEnemies >= 20) && (numEnemies < 21))
+			{
+				if (Rnd.NextDouble() < 0.6)
+				{
+					AddDirectAttackEnemy(1);
+				}
+				else
+				{
+					if (Rnd.NextDouble() < 0.6)
+					{
+						AddDirectAttackEnemy(2);
+					}
+					else
+					{
+						AddCircularAttackEnemy();
+					}
+				}
+				addSpeed -= 1;
 			}
 			else
 			{
-				AddCircularAttackEnemey();
+				if (Rnd.NextDouble() < 0.6)
+				{
+					AddDirectAttackEnemy(1);
+				}
+				else
+				{
+					if (Rnd.NextDouble() < 0.8)
+					{
+						AddDirectAttackEnemy(2);
+					}
+					else
+					{
+						AddCircularAttackEnemy();
+					}
+				}
 			}
 
-			if (difficulty > 70)
-			{
-				difficulty -= 5;
-			}
+			numEnemies++;
 		}
 	}
 
@@ -80,6 +141,18 @@ public class Level1 : Node
 	private void Player_Died()
 	{
 		game.PlayerScore = ((HUD)GetNode("HUD")).GetCoins();
+
+		var explosion = (PackedScene)ResourceLoader.Load("res://Components/Explosion.tscn");
+		Node2D explosionInstance = (Node2D)explosion.Instance();
+		var position = this.GetNode<Node2D>("Player").GlobalPosition;
+		explosionInstance.Position = position;
+		this.AddChild(explosionInstance);
+
+		this.GetNode<AudioStreamPlayer2D>("PlayerDiedSound").Play();
+	}
+
+	private void _on_PlayerDiedSound_finished()
+	{
 		game.GotoScene(Generic2dGame.Scenes.Gameover);
 	}
 
@@ -103,17 +176,18 @@ public class Level1 : Node
 		}
 	}
 
-	private void AddDirectAttackEnemy()
+	private void AddDirectAttackEnemy(int variety)
 	{
 		var dae = (PackedScene)ResourceLoader.Load("res://Components/DirectAttackEnemy.tscn");
 		DirectAttackEnemy daeInstance = (DirectAttackEnemy)dae.Instance();
+		daeInstance.SetVariety(variety);
 		AddChild(daeInstance);
 	}
 
-	private void AddCircularAttackEnemey()
+	private void AddCircularAttackEnemy()
 	{
-		var cae = (PackedScene)ResourceLoader.Load("res://Components/CircularAttackEnemey.tscn");
-		CircularAttackEnemey caeInstance = (CircularAttackEnemey)cae.Instance();
+		var cae = (PackedScene)ResourceLoader.Load("res://Components/CircularAttackEnemy.tscn");
+		CircularAttackEnemy caeInstance = (CircularAttackEnemy)cae.Instance();
 		AddChild(caeInstance);
 	}
 }
