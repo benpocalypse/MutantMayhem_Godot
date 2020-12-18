@@ -17,6 +17,7 @@ public class Generic2dGame : Node
 		CharacterSelectScreen,
 		CreditsScreen,
 		Level1,
+		Level1Boss,
 		//Level2,
 		//Level3,
 		Gameover
@@ -28,17 +29,34 @@ public class Generic2dGame : Node
 	public readonly Vector2 MoneyBagLocation = new Vector2(1200, 56);
 
 	public int PlayerScore = 0;
+	public int PlayerMaxHealth = 3;
+	public int PlayerHealth = 3;
 	public int LeftArmDamage = 1;
 	public int RightArmDamage = 1;
 
-	public ulong Level1TimeLimit = 7200;
+	// Data to persist
+	private const string saveFile = "user://saveFile.save";
+	public int HighestScore = 0;
+	public bool FirstTimePlaying = true;
 
 	public Node CurrentSceneFile { get; set; }
 
 	public override void _Ready()
 	{
+		//RestorePersistedData();
+
 		Viewport root = GetTree().Root;
 		CurrentSceneFile = root.GetChild(root.GetChildCount() - 1);
+	}
+
+	public override void _Notification(int notification)
+	{
+		// Save on quit. Note that you can call `DataManager.Save()` whenever you want
+		if (notification == MainLoop.NotificationWmQuitRequest)
+		{
+			StorePersistedData();
+			GetTree().Quit();
+		}
 	}
 
 /*
@@ -47,6 +65,44 @@ public class Generic2dGame : Node
 
 	}
 */
+
+	public void StorePersistedData()
+	{
+		var file = new File();
+
+		var fileExists = file.FileExists(saveFile);
+
+		if (!fileExists)
+		{
+			file.Open(saveFile, File.ModeFlags.Write);
+		}
+		else
+		{
+			file.Open(saveFile, File.ModeFlags.ReadWrite);
+		}
+
+		file.StoreVar(FirstTimePlaying);
+		file.StoreVar(HighestScore);
+
+		file.Close();
+	}
+
+	public void RestorePersistedData()
+	{
+		var file = new File();
+
+		var ifExists = file.FileExists(saveFile);
+
+		if (file.FileExists(saveFile))
+		{
+			file.Open(saveFile, File.ModeFlags.Read);
+
+			FirstTimePlaying = (bool)file.GetVar();
+			HighestScore = (int)file.GetVar();
+
+			file.Close();
+		}
+	}
 
 	public void GotoScene(Scenes nextScene)
 	{

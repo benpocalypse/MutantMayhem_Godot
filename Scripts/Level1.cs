@@ -6,6 +6,7 @@ public class Level1 : Node
 	private ulong time = 0;
 	private ulong addSpeed = 3;
 	private float ticks = 0.0f;
+	private float totalTicksForLevel = 90.0f;
 	private int numEnemies = 0;
 	private Random Rnd = new Random();
 
@@ -23,6 +24,10 @@ public class Level1 : Node
 		GetNode("Player").Connect("HeadHit", this, nameof(Player_HeadHit));
 
 		GetNode("HUD").Connect("PlayerDied", this, nameof(Player_Died));
+		GetNode("HUD").Connect("LevelComplete", this, nameof(Level_Complete));
+
+		game.RestorePersistedData();
+		game.FirstTimePlaying = false;
 
 		PopulateClouds(prePopulate: true);
 	}
@@ -35,6 +40,8 @@ public class Level1 : Node
 		{
 			time++;
 			ticks = 0.0f;
+
+			this.GetNode<HUD>("HUD").SetProgress((float)time/totalTicksForLevel);
 		}
 
 		if (((time % 3) == 0) && (ticks == 0.0f))
@@ -151,8 +158,35 @@ public class Level1 : Node
 		this.GetNode<AudioStreamPlayer2D>("PlayerDiedSound").Play();
 	}
 
+	private void Level_Complete()
+	{
+		// FIXME - Have this go to the boss level.
+
+		game.PlayerScore = ((HUD)GetNode("HUD")).GetCoins();
+
+		if (game.PlayerScore > game.HighestScore)
+		{
+			game.HighestScore = game.PlayerScore;
+		}
+
+		game.PlayerHealth = this.GetNode<HUD>("HUD").GetHealth();
+
+		game.StorePersistedData();
+
+		game.GotoScene(Generic2dGame.Scenes.Level1Boss);
+	}
+
 	private void _on_PlayerDiedSound_finished()
 	{
+		game.PlayerScore = ((HUD)GetNode("HUD")).GetCoins();
+
+		if (game.PlayerScore > game.HighestScore)
+		{
+			game.HighestScore = game.PlayerScore;
+		}
+
+		game.StorePersistedData();
+
 		game.GotoScene(Generic2dGame.Scenes.Gameover);
 	}
 

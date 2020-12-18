@@ -3,27 +3,35 @@ using System;
 
 public class HUD : Node2D
 {
+	Generic2dGame game;
 	Random rnd = new Random();
 
 	private int maxHealth = 3;
 	private int currentHealth = 3;
 	private int coins = 0;
 	private int coinAnimationCounter = 0;
-	private float scaleFactor = 1.0f;
+	private float moneyBagScaleFactor = 1.0f;
+	private Vector2 moneyBagOriginalScale;
 	private float polygonAlpha = 0.0f;
 	private bool PlayerDying = false;
 	private bool removingHeart = false;
 	private string heartToRemove = string.Empty;
 	private int heartAnimationCounter = 0;
 	private const int heartAnimationTime = 40;
+	private float levelProgress = 0.0f;
 	private bool paused = false;
-	private Vector2 moneyBagOriginalScale;
+
 
 	[Signal]
 	public delegate void PlayerDied();
 
+	[Signal]
+	public delegate void LevelComplete();
+
 	public override void _Ready()
 	{
+		game = (Generic2dGame)GetNode("/root/Generic2dGame");
+
 		InitializeHud();
 
 		Engine.TimeScale = 1.0f;
@@ -37,12 +45,12 @@ public class HUD : Node2D
 		{
 			_on_TextureButton_button_down();
 		}
-	
+
 		if (coinAnimationCounter > 0)
 		{
 			var moneyBag = (Sprite)GetNode("MoneyBag");
-			scaleFactor += 0.2f;
-			var factor = ((float)Math.Sin(((double)scaleFactor)));
+			moneyBagScaleFactor += 0.2f;
+			var factor = ((float)Math.Sin(((double)moneyBagScaleFactor)));
 
 			moneyBag.ApplyScale(new Vector2(1 + (factor/30), 1 + (factor/30)));
 
@@ -51,7 +59,7 @@ public class HUD : Node2D
 		else
 		{
 			var moneyBag = (Sprite)GetNode("MoneyBag");
-			scaleFactor = 1.0f;
+			moneyBagScaleFactor = 1.0f;
 			moneyBag.Scale = moneyBagOriginalScale;
 		}
 
@@ -76,15 +84,26 @@ public class HUD : Node2D
 		}
 	}
 
-	private void InitializeHud()//int _currentHealth, int _maxHealth, int _coins)
+	public void InitializeHud()
 	{
-		for (int i = 0; i < currentHealth; i++)
+		currentHealth = game.PlayerHealth;
+
+		for (int i = 0; i < game.PlayerMaxHealth; i++)
 		{
 			var heart = (PackedScene)ResourceLoader.Load("res://Components/Heart.tscn");
 			Heart heartInstance = (Heart)heart.Instance();
 			heartInstance.Translate(new Vector2((i+1)*65, 50));
 			var sprite = ((Sprite)heartInstance.GetNode("Sprite"));
-			sprite.Texture = ((Texture)GD.Load("res://Assets/Misc/HUD/HeartFull" + rnd.Next(1, 4) + ".png"));
+
+			if ((i+1) > currentHealth)
+			{
+				sprite.Texture = ((Texture)GD.Load("res://Assets/Misc/HUD/HeartEmpty" + rnd.Next(1, 4) + ".png"));
+			}
+			else
+			{
+				sprite.Texture = ((Texture)GD.Load("res://Assets/Misc/HUD/HeartFull" + rnd.Next(1, 4) + ".png"));
+			}
+
 			heartInstance.Name = "Heart" + (i + 1).ToString();
 			AddChild(heartInstance);
 		}
@@ -134,6 +153,11 @@ public class HUD : Node2D
 		}
 	}
 
+	public int GetHealth()
+	{
+		return currentHealth;
+	}
+
 	public void AddCoin(int amount)
 	{
 		coins += amount;
@@ -144,6 +168,20 @@ public class HUD : Node2D
 		return coins;
 	}
 
+	public void SetProgress(float progress)
+	{
+		if (progress < 1.0f)
+		{
+			levelProgress = progress;
+		}
+		else
+		{
+			EmitSignal(nameof(LevelComplete));
+		}
+
+		this.GetNode<Sprite>("ProgressBarProgress").Scale = new Vector2(levelProgress, 1.0f);
+	}
+
 	private void _on_Area2D_area_entered(object area)
 	{
 		coinAnimationCounter = 50;
@@ -152,7 +190,8 @@ public class HUD : Node2D
 	private void _on_TextureButton_button_down()
 	{
 		paused = !paused;
-		
+		this.GetNode<AudioStreamPlayer2D>("ButtonSound").Play();
+
 		if (paused)
 		{
 			Engine.TimeScale = 0.0f;

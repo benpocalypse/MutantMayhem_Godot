@@ -1,9 +1,13 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/HUD.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Misc/HUD/MoneyBag.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Fonts/Crayawn-v58y.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Assets/Misc/HUD/PauseButton.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Misc/HUD/ProgressBarBorder.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Misc/HUD/ProgressBarProgress.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Misc/HUD/PauseButtonPressed.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Audio/Sfx/sfx_sounds_button11.wav" type="AudioStream" id=8]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 32.0
@@ -51,14 +55,31 @@ z_index = 4
 color = Color( 0, 0, 0, 1 )
 polygon = PoolVector2Array( 0, 0, 1280, 0, 1280, 720, 0, 720 )
 
-[node name="TextureButton" type="TextureButton" parent="."]
+[node name="PauseButton" type="TextureButton" parent="."]
 margin_left = 40.0
 margin_top = 608.0
 margin_right = 115.0
 margin_bottom = 683.0
+toggle_mode = true
 texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ProgressBarBorder" type="Sprite" parent="."]
+position = Vector2( 1136, 656 )
+z_index = 3
+texture = ExtResource( 5 )
+
+[node name="ProgressBarProgress" type="Sprite" parent="."]
+position = Vector2( 1025, 629 )
+scale = Vector2( 1e-05, 1 )
+z_index = 2
+texture = ExtResource( 6 )
+centered = false
+
+[node name="ButtonSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 8 )
 [connection signal="area_entered" from="MoneyBag/Area2D" to="." method="_on_Area2D_area_entered"]
-[connection signal="button_down" from="TextureButton" to="." method="_on_TextureButton_button_down"]
+[connection signal="button_down" from="PauseButton" to="." method="_on_TextureButton_button_down"]

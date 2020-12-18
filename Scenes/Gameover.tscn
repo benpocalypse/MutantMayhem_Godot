@@ -47,6 +47,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="HighScoreText" type="RichTextLabel" parent="."]
+margin_left = 486.0
+margin_top = 451.0
+margin_right = 990.0
+margin_bottom = 547.0
+custom_fonts/normal_font = SubResource( 2 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+bbcode_enabled = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="ButtonSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 2 )
 

@@ -9,6 +9,7 @@ public class Gameover : Node2D
 	{
 		game = (Generic2dGame)GetNode("/root/Generic2dGame");
 		((RichTextLabel)this.GetNode("ScoreText")).BbcodeText = $"Final Score:  {game.PlayerScore}";
+		((RichTextLabel)this.GetNode("HighScoreText")).BbcodeText = $"High Score:  {game.HighestScore}";
 	}
 	
 	public override void _Process(float delta)
