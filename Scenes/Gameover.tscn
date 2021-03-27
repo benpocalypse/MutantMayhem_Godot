@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scripts/Gameover.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Audio/Sfx/sfx_sounds_button11.wav" type="AudioStream" id=2]
-[ext_resource path="res://Assets/Audio/Music/Komiku_-_09_-_Glouglou.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Assets/Audio/Music/Komiku_-_20_-_SUPER_POUPI.ogg" type="AudioStream" id=3]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://Assets/Fonts/Crayawn-v58y.ttf"

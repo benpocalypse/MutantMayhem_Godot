@@ -31,7 +31,7 @@ public class Titlescreen : Node
 			_on_CreditsButton_pressed();
 		}
 	}
-	
+
 	private void _on_QuitGameButton_pressed()
 	{
 		GetTree().Quit();

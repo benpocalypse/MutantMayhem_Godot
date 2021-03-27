@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/Level1.cs" type="Script" id=1]
 [ext_resource path="res://Components/Player.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Assets/Audio/Music/Komiku_-_12_-_Bicycle.ogg" type="AudioStream" id=6]
 [ext_resource path="res://Assets/Audio/Sfx/sfx_sounds_negative1.wav" type="AudioStream" id=7]
 [ext_resource path="res://Components/HUD.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Assets/Audio/Music/Komiku_-_18_-_Dance_contest_to_the_meowsic.ogg" type="AudioStream" id=9]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
@@ -35,4 +36,7 @@ texture = ExtResource( 5 )
 
 [node name="PlayerDiedSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 7 )
+
+[node name="Boss1Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 9 )
 [connection signal="finished" from="PlayerDiedSound" to="." method="_on_PlayerDiedSound_finished"]

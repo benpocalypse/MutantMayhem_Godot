@@ -9,6 +9,7 @@ public class CircularAttackEnemy : IEnemy
 	private float shrinkSpeed = 20f;
 	private float speed = 20f;
 	private float currentAngle = 0.0f;
+
 	public override void _Ready()
 	{
 		EntranceSide = ((Side)Rnd.Next(0, 4));
@@ -20,7 +21,7 @@ public class CircularAttackEnemy : IEnemy
 				StartingY = -80;
 				break;
 
-			case Side.Left:;
+			case Side.Left:
 				StartingX = -80;
 				StartingY = Rnd.Next(0, Generic2dGame.ScreenHeight);
 				break;

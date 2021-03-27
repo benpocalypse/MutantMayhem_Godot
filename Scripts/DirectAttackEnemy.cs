@@ -13,7 +13,6 @@ public class DirectAttackEnemy : IEnemy
 	public override void _Ready()
 	{
 		EntranceSide = ((Side)Rnd.Next(0, 4));
-		rotationSpeed = ((float)Rnd.Next(-50,50))*0.1f;
 
 		switch (EntranceSide)
 		{
@@ -66,7 +65,7 @@ public class DirectAttackEnemy : IEnemy
 
 		if (HitAnimationTimer > 0.0f)
 		{
-			var sprite = this.GetNode<Sprite>("Sprite");
+			var sprite = this.GetNode<AnimatedSprite>("Sprite");
 			sprite.SelfModulate = new Color(0.5f - HitAnimationTimer, 0.5f - HitAnimationTimer, 0.5f - HitAnimationTimer);
 
 			HitAnimationTimer -= delta;
@@ -74,7 +73,7 @@ public class DirectAttackEnemy : IEnemy
 		else
 		{
 			HitAnimationTimer = 0.0f;
-			var sprite = this.GetNode<Sprite>("Sprite");
+			var sprite = this.GetNode<AnimatedSprite>("Sprite");
 			sprite.SelfModulate = new Color(1, 1, 1);
 		}
 	}
@@ -84,18 +83,58 @@ public class DirectAttackEnemy : IEnemy
 		switch (variety)
 		{
 			case 1:
-				((Sprite)this.GetNode("Sprite")).Texture = ((Texture)GD.Load("res://Assets/Enemies/Bomb1.png"));
+				var aSprite = ((AnimatedSprite)this.GetNode("Sprite"));
+				var image1 = ((Texture)GD.Load("res://Assets/Enemies/Bomb1.png"));
+
+				aSprite.Frames = new SpriteFrames();
+    			aSprite.Frames.AddAnimation("default");
+    			aSprite.Frames.AddFrame("default", image1, 0);
+    			aSprite.Frames.SetAnimationLoop("default", true);
+    			aSprite.Frames.SetAnimationSpeed("default", 5.0f);
+
+				rotationSpeed = ((float)Rnd.Next(-50,50))*0.1f;
 				Health = 1;
 				break;
 
 			case 2:
-				((Sprite)this.GetNode("Sprite")).Texture = ((Texture)GD.Load("res://Assets/Enemies/Potion1.png"));
+				aSprite = ((AnimatedSprite)this.GetNode("Sprite"));
+				image1 = ((Texture)GD.Load("res://Assets/Enemies/Potion1.png"));
+
+				aSprite.Frames = new SpriteFrames();
+    			aSprite.Frames.AddAnimation("default");
+    			aSprite.Frames.AddFrame("default", image1, 0);
+    			aSprite.Frames.SetAnimationLoop("default", true);
+    			aSprite.Frames.SetAnimationSpeed("default", 5.0f);
+
+				rotationSpeed = ((float)Rnd.Next(-50,50))*0.1f;
 				Health = 2;
 				speed = 0.22f;
 				break;
 
+			case 3:
+				aSprite = ((AnimatedSprite)this.GetNode("Sprite"));
+				image1 = ((Texture)GD.Load("res://Assets/Enemies/Flyingfrog_1.png"));
+				var image2 = ((Texture)GD.Load("res://Assets/Enemies/Flyingfrog_2.png"));
+				var image3 = ((Texture)GD.Load("res://Assets/Enemies/Flyingfrog_3.png"));
+				var image4 = ((Texture)GD.Load("res://Assets/Enemies/Flyingfrog_4.png"));
+
+				aSprite.Frames = new SpriteFrames();
+    			aSprite.Frames.AddAnimation("default");
+    			aSprite.Frames.AddFrame("default", image1, 0);
+    			aSprite.Frames.AddFrame("default", image2, 1);
+				aSprite.Frames.AddFrame("default", image3, 2);
+				aSprite.Frames.AddFrame("default", image4, 3);
+    			aSprite.Frames.SetAnimationLoop("default", true);
+    			aSprite.Frames.SetAnimationSpeed("default", 40.0f);
+				aSprite.Playing = true;
+
+				Health = 1;
+				speed = 0.10f;
+				break;
+
 			default:
 				((Sprite)this.GetNode("Sprite")).Texture = ((Texture)GD.Load("res://Assets/Enemies/Bomb1.png"));
+				rotationSpeed = ((float)Rnd.Next(-50,50))*0.1f;
 				Health = 1;
 				break;
 		}

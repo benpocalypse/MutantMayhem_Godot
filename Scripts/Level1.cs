@@ -8,6 +8,7 @@ public class Level1 : Node
 	private float ticks = 0.0f;
 	private float totalTicksForLevel = 90.0f;
 	private int numEnemies = 0;
+	private bool fightingBoss = false;
 	private Random Rnd = new Random();
 
 	private Generic2dGame game;
@@ -30,6 +31,7 @@ public class Level1 : Node
 		game.FirstTimePlaying = false;
 
 		PopulateClouds(prePopulate: true);
+		AddDirectAttackEnemy(3);
 	}
 
 	public override void _Process(float delta)
@@ -49,7 +51,9 @@ public class Level1 : Node
 			PopulateClouds(prePopulate: false);
 		}
 
-		if (((time % addSpeed) == 0) && (ticks == 0.0f))
+		// FIXME - uncomment
+
+		if (((time % addSpeed) == 0) && (ticks == 0.0f) && !fightingBoss)
 		{
 			if (numEnemies < 10)
 			{
@@ -160,8 +164,6 @@ public class Level1 : Node
 
 	private void Level_Complete()
 	{
-		// FIXME - Have this go to the boss level.
-
 		game.PlayerScore = ((HUD)GetNode("HUD")).GetCoins();
 
 		if (game.PlayerScore > game.HighestScore)
@@ -173,7 +175,17 @@ public class Level1 : Node
 
 		game.StorePersistedData();
 
-		game.GotoScene(Generic2dGame.Scenes.Level1Boss);
+		((AudioStreamPlayer2D)GetNode("Level1Music")).Playing = false;
+		((AudioStreamPlayer2D)GetNode("Boss1Music")).Playing = true;
+
+		var boss = (PackedScene)ResourceLoader.Load("res://Components/Boss1.tscn");
+		Boss1 bossInstance = (Boss1)boss.Instance();
+		//daeInstance.SetVariety(variety);
+		AddChild(bossInstance);
+
+		fightingBoss = true;
+
+		//game.GotoScene(Generic2dGame.Scenes.Level1Boss);
 	}
 
 	private void _on_PlayerDiedSound_finished()

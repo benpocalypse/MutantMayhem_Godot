@@ -20,6 +20,7 @@ public class HUD : Node2D
 	private const int heartAnimationTime = 40;
 	private float levelProgress = 0.0f;
 	private bool paused = false;
+	private bool levelCompleteEmitted = false;
 
 
 	[Signal]
@@ -176,7 +177,11 @@ public class HUD : Node2D
 		}
 		else
 		{
-			EmitSignal(nameof(LevelComplete));
+			if (levelCompleteEmitted == false)
+			{
+				EmitSignal(nameof(LevelComplete));
+				levelCompleteEmitted = true;
+			}
 		}
 
 		this.GetNode<Sprite>("ProgressBarProgress").Scale = new Vector2(levelProgress, 1.0f);

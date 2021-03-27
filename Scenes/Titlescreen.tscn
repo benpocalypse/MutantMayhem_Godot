@@ -40,16 +40,6 @@ position = Vector2( 192, -88 )
 z_index = -1
 texture = ExtResource( 3 )
 
-[node name="CreditsButton" type="Button" parent="."]
-margin_left = 600.0
-margin_top = 192.0
-margin_right = 776.0
-margin_bottom = 248.0
-text = "Credits"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="TitlescreenMusic" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
 autoplay = true
@@ -58,5 +48,4 @@ autoplay = true
 stream = ExtResource( 5 )
 [connection signal="pressed" from="StartGameButton" to="." method="_on_StartGameButton_pressed"]
 [connection signal="pressed" from="QuitGameButton" to="." method="_on_QuitGameButton_pressed"]
-[connection signal="pressed" from="CreditsButton" to="." method="_on_CreditsButton_pressed"]
 [connection signal="finished" from="ButtonSound" to="." method="_on_ButtonSound_finished"]

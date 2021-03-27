@@ -3,7 +3,7 @@
 [ext_resource path="res://Assets/Backgrounds/opening_credits.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/CreditsScreen.cs" type="Script" id=2]
 [ext_resource path="res://Assets/Audio/Sfx/sfx_sounds_button11.wav" type="AudioStream" id=3]
-[ext_resource path="res://Assets/Audio/Music/Komiku_-_01_-_Soundtrack.ogg" type="AudioStream" id=4]
+[ext_resource path="res://Assets/Audio/Music/Komiku_-_20_-_SUPER_POUPI.ogg" type="AudioStream" id=4]
 
 [node name="Credits" type="Node2D"]
 script = ExtResource( 2 )
