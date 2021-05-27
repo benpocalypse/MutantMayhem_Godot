@@ -39,7 +39,6 @@ anims/intro = SubResource( 1 )
 
 [node name="AcmeChemicalBackground" type="Sprite" parent="AnimationPlayer"]
 position = Vector2( -32, -32 )
-scale = Vector2( 1.01028, 1.01028 )
 texture = ExtResource( 2 )
 centered = false
 
