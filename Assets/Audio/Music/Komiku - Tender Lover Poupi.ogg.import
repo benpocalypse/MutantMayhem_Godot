@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Komiku - Tender Lover Poupi.ogg-aa9e82f57d8fad3d54b2dbaa0f6fbbe7.oggstr"
+
+[deps]
+
+source_file="res://Assets/Audio/Music/Komiku - Tender Lover Poupi.ogg"
+dest_files=[ "res://.import/Komiku - Tender Lover Poupi.ogg-aa9e82f57d8fad3d54b2dbaa0f6fbbe7.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,10 +1,27 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Titlescreen.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Backgrounds/Titlescreen.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Foregrounds/titlescreen_transparent.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Audio/Music/Komiku_-_01_-_Opening_.ogg" type="AudioStream" id=4]
 [ext_resource path="res://Assets/Audio/Sfx/sfx_sounds_button11.wav" type="AudioStream" id=5]
+
+[sub_resource type="Animation" id=1]
+resource_name = "SlowRotation"
+length = 20.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimationPlayer/Background:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 5, 10.8, 15, 20.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -5.0, 0.0, 5.0, 0.0 ]
+}
 
 [node name="Titlescreen" type="Node2D"]
 position = Vector2( 472, 448 )
@@ -30,11 +47,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Background" type="Sprite" parent="."]
-position = Vector2( 168, -88 )
-z_index = -2
-texture = ExtResource( 2 )
-
 [node name="Foreground" type="Sprite" parent="."]
 position = Vector2( 192, -88 )
 scale = Vector2( 0.75, 0.75 )
@@ -47,6 +59,19 @@ autoplay = true
 
 [node name="ButtonSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+pause_mode = 2
+autoplay = "SlowRotation"
+playback_process_mode = 0
+method_call_mode = 1
+anims/SlowRotation = SubResource( 1 )
+
+[node name="Background" type="Sprite" parent="AnimationPlayer"]
+position = Vector2( 642.292, 354.881 )
+scale = Vector2( 1.12518, 1.16821 )
+z_index = -2
+texture = ExtResource( 2 )
 [connection signal="pressed" from="StartGameButton" to="." method="_on_StartGameButton_pressed"]
 [connection signal="pressed" from="QuitGameButton" to="." method="_on_QuitGameButton_pressed"]
 [connection signal="finished" from="ButtonSound" to="." method="_on_ButtonSound_finished"]
