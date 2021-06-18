@@ -17,7 +17,6 @@ public class Generic2dGame : Node
 		CharacterSelectScreen,
 		CreditsScreen,
 		Level1,
-		Level1Boss,
 		//Level2,
 		//Level3,
 		Gameover

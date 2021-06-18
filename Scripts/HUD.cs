@@ -21,6 +21,7 @@ public class HUD : Node2D
 	private float levelProgress = 0.0f;
 	private bool paused = false;
 	private bool levelCompleteEmitted = false;
+	private bool bossDefeated = false;
 
 
 	[Signal]
@@ -171,20 +172,41 @@ public class HUD : Node2D
 
 	public void SetProgress(float progress)
 	{
-		if (progress < 1.0f)
+		if (this.GetNode<Sprite>("ProgressBarProgress").Visible == true)
 		{
-			levelProgress = progress;
-		}
-		else
-		{
-			if (levelCompleteEmitted == false)
+			if (progress >= 1.0f && (levelCompleteEmitted == false) )
 			{
-				EmitSignal(nameof(LevelComplete));
-				levelCompleteEmitted = true;
-			}
-		}
+				levelProgress = progress;
 
-		this.GetNode<Sprite>("ProgressBarProgress").Scale = new Vector2(levelProgress, 1.0f);
+				EmitSignal(nameof(LevelComplete));
+					levelCompleteEmitted = true;
+			}
+
+			this.GetNode<Sprite>("ProgressBarProgress").Scale = new Vector2(levelProgress, 1.0f);
+		}
+	}
+
+	public void ShowBossHealthBar()
+	{
+		this.GetNode<Sprite>("ProgressBarBorder").Visible = false;
+		this.GetNode<Sprite>("ProgressBarProgress").Visible = false;
+		this.GetNode<Sprite>("BossHealth").Visible = true;
+		this.GetNode<Sprite>("BossName").Visible = true;
+	}
+
+	public void SetBossHealthBarPercent(float healthPercent)
+	{
+		if (this.GetNode<Sprite>("BossHealth").Visible == true)
+		{
+			if (healthPercent <= 0.0f && (bossDefeated == false) )
+			{
+				// FIXME - Implement this.
+				//EmitSignal(nameof(BossDefeated));
+				bossDefeated = true;
+			}
+
+			this.GetNode<Sprite>("BossHealth").Scale = new Vector2(healthPercent, 0.694f);
+		}
 	}
 
 	private void _on_Area2D_area_entered(object area)

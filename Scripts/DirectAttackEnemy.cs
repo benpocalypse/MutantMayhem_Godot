@@ -38,12 +38,16 @@ public class DirectAttackEnemy : IEnemy
 		}
 
 		Position = new Vector2(StartingX, StartingY);
-		positionDifference = playerPosition - this.Position;
+		positionDifference = playerPosition - Position;
 
 		var sprite = this.GetNode("Sprite");
 		Area = ((Area2D)sprite.GetNode("Area2D"));
 
-		this.GetParent().GetNode("Player").Connect("Hit", this, nameof(Hit));
+		var player = this.GetParent().GetNode("Player");
+		if (player != null)
+		{
+			player.Connect("Hit", this, nameof(Hit));
+		}
 	}
 
 	public override void _Process(float delta)
@@ -76,6 +80,12 @@ public class DirectAttackEnemy : IEnemy
 			var sprite = this.GetNode<AnimatedSprite>("Sprite");
 			sprite.SelfModulate = new Color(1, 1, 1);
 		}
+	}
+
+	public void SetStartingPosition(Vector2 startingPosition)
+	{
+		Position = startingPosition; 
+		positionDifference = playerPosition - Position;
 	}
 
 	public void SetVariety(int variety)

@@ -10,16 +10,23 @@ public class Boss1 : IEnemy
         Hit
     };
 
+    [Signal]
+	public delegate void BossDefeated();
+
     // FIXME - Have the position of the player be dynamic/calculable.
     private Vector2 playerPosition = new Vector2(640, 360);
     private Vector2 oldPosition = new Vector2(0, 0);
     private Vector2 positionDifference = new Vector2(0, 0);
-    private float currentRadius = 250;
-    private const float originalRadius = 250;
-    private const float radiusLimit = 20;
+    private float currentRadius = 270;
+    private const float originalRadius = 270;
+    private const float minimumRadiusLimit = 20;
+    private const float shrinkSpeed = 5.0f;
+    private bool movingClockwise = true;
     private float waveSpeed = 1f;
     private float moveSpeed = 0.55f;
     private float currentAngle = 270.0f;
+    private float shootProjectileLimit = 5.0f;
+    private float shootProjectileTimer = 0f;
 
     private MovementPhase Phase = MovementPhase.JustEntered;
 
@@ -27,16 +34,11 @@ public class Boss1 : IEnemy
     {
         this.Position = new Vector2(Generic2dGame.ScreenWidth / 2, -80);
 
-        Health = 10;
+        Health = 5;
+        TotalHealth = 5;
 
         var sprite = this.GetNode("Sprite");
         Area = ((Area2D)sprite.GetNode("Area2D"));
-
-        //currentAngle = Rnd.Next(0, 360);
-
-        //oldPosition = PointOnCircle(radius, currentAngle, playerPosition);
-        //Position = oldPosition;
-        //LookAt(PointOnCircle(radius, currentAngle - 10, playerPosition));
 
         positionDifference = playerPosition - this.Position;
 
@@ -48,47 +50,73 @@ public class Boss1 : IEnemy
     {
         switch (Phase)
         {
+            // Slide down from the top.
             case MovementPhase.JustEntered:
-                if (this.Position.y < 120)
+                if (this.Position.y < 100)
                 {
                     this.Translate(positionDifference * moveSpeed * delta);
                     moveSpeed -= 0.005f;
                 }
                 else
                 {
-                    Phase = MovementPhase.MovingInCircle;
                     oldPosition = this.Position;
-                    moveSpeed = 20.0f;
+                    moveSpeed = 30.0f;
+                    Phase = MovementPhase.MovingInCircle;
                 }
                 break;
 
+            // Move in increasingly smaller circles.
             case MovementPhase.MovingInCircle:
                 var newPoint = PointOnCircle(currentRadius, currentAngle, playerPosition);
-                //LookAt(PointOnCircle(radius, currentAngle - 10, playerPosition));
+
+                // FIXME - get this to work
+                //LookAt(PointOnCircle(currentRadius, currentAngle - 10, playerPosition));
+
                 Translate((newPoint - oldPosition));
 
-                currentAngle += moveSpeed * delta;
+                // Continue to move in a circle.
+                currentAngle += movingClockwise ?
+                    moveSpeed * delta :
+                    moveSpeed * delta * -1;
 
-                if (currentRadius >= originalRadius - radiusLimit)
+                // And shrink the circle based on how long we've been in this phase.
+                if (currentRadius > minimumRadiusLimit)
                 {
-                    currentRadius -= waveSpeed * delta;
+                    currentRadius -= shrinkSpeed * delta;
+                }
+
+                // Count up and then shoot fly's at the player!
+                if (shootProjectileTimer < shootProjectileLimit)
+                {
+                    shootProjectileTimer += delta;
                 }
                 else
                 {
-                    if (currentRadius <= originalRadius + radiusLimit)
-                    {
-                        currentRadius += waveSpeed * delta;
-                    }
-                }
+                    shootProjectileTimer = 0.0f;
 
-                //shrinkSpeed += delta;
-                //moveSpeed += delta;
+                    var dae = (PackedScene)ResourceLoader.Load("res://Components/DirectAttackEnemy.tscn");
+                    DirectAttackEnemy daeInstance = (DirectAttackEnemy)dae.Instance();
+                    daeInstance.SetVariety(3);
+                    daeInstance.SetStartingPosition(newPoint);
+                    AddChild(daeInstance);
+                }
 
                 oldPosition = newPoint;
                 break;
 
+            // Back up and change direction.
             case MovementPhase.Hit:
+                currentRadius = originalRadius;
 
+                newPoint = PointOnCircle(currentRadius, currentAngle, playerPosition);
+                Translate((newPoint - oldPosition));
+
+                oldPosition = newPoint;
+                movingClockwise = !movingClockwise;
+
+                shootProjectileTimer = 0.0f;
+
+                Phase = MovementPhase.MovingInCircle;
                 break;
         }
 
@@ -101,7 +129,7 @@ public class Boss1 : IEnemy
         {
             if ((Area.GetOverlappingAreas().Count) > 0 && (DamageToTake > 0))
             {
-                Hit(DamageToTake, NodeGuid.ToString());
+                Phase = MovementPhase.Hit;
             }
         }
 
@@ -129,8 +157,10 @@ public class Boss1 : IEnemy
             {
                 Health -= damage;
 
-                // FIXME - Implement this.
-                //Phase = MovementPhase.Hit;
+                var hud = this.GetParent().GetNode<HUD>("HUD");
+                hud.SetBossHealthBarPercent(((float)Health) / ((float)TotalHealth));
+
+                Phase = MovementPhase.Hit;
 
                 if (Health > 0)
                 {
@@ -151,20 +181,20 @@ public class Boss1 : IEnemy
                     Coin coinInstance = (Coin)coin.Instance();
                     coinInstance.Position = position;
 
-                    var hud = this.GetParent().GetNode("HUD");
-
                     if (Rnd.NextDouble() < 0.90)
                     {
                         coinInstance.SetValue(1);
-                        ((HUD)hud).AddCoin(1);
+                        hud.AddCoin(1);
                     }
                     else
                     {
                         coinInstance.SetValue(5);
-                        ((HUD)hud).AddCoin(5);
+                        hud.AddCoin(5);
                     }
 
                     this.GetParent().AddChild(coinInstance);
+
+                    EmitSignal(nameof(BossDefeated));
 
                     CallDeferred("free");
                 }

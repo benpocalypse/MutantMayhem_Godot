@@ -24,12 +24,13 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=2]
 radius = 106.667
 
-[node name="Node2D" type="Node2D"]
+[node name="Boss1" type="Node2D"]
 script = ExtResource( 7 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 0.6, 0.6 )
 frames = SubResource( 1 )
+frame = 3
 playing = true
 
 [node name="Area2D" type="Area2D" parent="Sprite"]

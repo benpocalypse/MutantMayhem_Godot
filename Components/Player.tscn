@@ -28,7 +28,7 @@ animations = [ {
 
 [sub_resource type="CapsuleShape2D" id=4]
 radius = 24.0
-height = 96.0
+height = 68.6689
 
 [sub_resource type="SpriteFrames" id=5]
 animations = [ {
@@ -40,7 +40,7 @@ animations = [ {
 
 [sub_resource type="CapsuleShape2D" id=6]
 radius = 24.0
-height = 80.0
+height = 68.2018
 
 [node name="Player" type="Node2D"]
 position = Vector2( -1, -39 )
@@ -57,25 +57,25 @@ playing = true
 shape = SubResource( 2 )
 
 [node name="LeftArm" type="AnimatedSprite" parent="."]
-position = Vector2( -104, 40 )
+position = Vector2( -86, 40 )
 frames = SubResource( 3 )
 flip_h = true
 
 [node name="LeftArmArea2D" type="Area2D" parent="LeftArm"]
 
 [node name="LeftArmCollisionShape2D" type="CollisionShape2D" parent="LeftArm/LeftArmArea2D"]
-position = Vector2( -15, 0 )
+position = Vector2( -23, 0 )
 rotation = 1.5708
 shape = SubResource( 4 )
 
 [node name="RightArm" type="AnimatedSprite" parent="."]
-position = Vector2( 96, 40 )
+position = Vector2( 89, 40 )
 frames = SubResource( 5 )
 
 [node name="RightArmArea2D" type="Area2D" parent="RightArm"]
 
 [node name="RightArmCollisionShape2D" type="CollisionShape2D" parent="RightArm/RightArmArea2D"]
-position = Vector2( 17, 0 )
+position = Vector2( 21, 0 )
 rotation = 1.5708
 shape = SubResource( 6 )
 

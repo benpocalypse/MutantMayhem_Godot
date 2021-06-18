@@ -86,13 +86,13 @@ stream = ExtResource( 8 )
 
 [node name="BossHealth" type="Sprite" parent="."]
 visible = false
-position = Vector2( 1128, 658.5 )
+position = Vector2( 1018, 626.5 )
 scale = Vector2( 1, 0.694117 )
 texture = ExtResource( 9 )
+centered = false
 
 [node name="BossName" type="Sprite" parent="."]
-visible = false
-position = Vector2( 1128, 608 )
+position = Vector2( 1130, 605 )
 texture = ExtResource( 10 )
 [connection signal="area_entered" from="MoneyBag/Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="button_down" from="PauseButton" to="." method="_on_TextureButton_button_down"]

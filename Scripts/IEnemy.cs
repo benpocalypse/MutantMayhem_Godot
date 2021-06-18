@@ -17,6 +17,7 @@ public class IEnemy : Node2D
 	public int StartingY = 0;
 	public Random Rnd = new Random();
 	public int Health = 0;
+	public int TotalHealth = 0;
 	public float HitCoolDownTimer = 0.0f;
 	public float HitAnimationTimer = 0.0f;
 	public int DamageToTake = 0;

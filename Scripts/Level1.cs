@@ -25,13 +25,17 @@ public class Level1 : Node
 		GetNode("Player").Connect("HeadHit", this, nameof(Player_HeadHit));
 
 		GetNode("HUD").Connect("PlayerDied", this, nameof(Player_Died));
-		GetNode("HUD").Connect("LevelComplete", this, nameof(Level_Complete));
+		GetNode("HUD").Connect("LevelComplete", this, nameof(LevelComplete));
+		
+		// FIXME - This doesn't work, it plays forever.
+		GetNode("WinMusic").Connect("finished", this, nameof(_on_WinMusic_finished));
 
 		game.RestorePersistedData();
 		game.FirstTimePlaying = false;
 
 		PopulateClouds(prePopulate: true);
-		AddDirectAttackEnemy(3);
+
+		LevelComplete();
 	}
 
 	public override void _Process(float delta)
@@ -46,12 +50,10 @@ public class Level1 : Node
 			this.GetNode<HUD>("HUD").SetProgress((float)time/totalTicksForLevel);
 		}
 
-		if (((time % 3) == 0) && (ticks == 0.0f))
+		if ( ((time % 3) == 0) && (ticks == 0.0f) )
 		{
 			PopulateClouds(prePopulate: false);
 		}
-
-		// FIXME - uncomment
 
 		if (((time % addSpeed) == 0) && (ticks == 0.0f) && !fightingBoss)
 		{
@@ -122,6 +124,11 @@ public class Level1 : Node
 
 			numEnemies++;
 		}
+		else // We're fighting the boss!
+		{
+			//var boss = this.GetNode<Boss1>("Boss1");
+			//this.GetNode<HUD>("HUD").SetBossHealthBarPercent((float)((float)boss.Health / (float)boss.TotalHealth));
+		}
 	}
 
 	private void On_LeftButton_pressed()
@@ -149,6 +156,12 @@ public class Level1 : Node
 		((HUD)GetNode("HUD")).SubtractOneHealth();
 	}
 
+	private void Boss_Defeated()
+	{
+		this.GetNode<AudioStreamPlayer2D>("Boss1Music").Stop();
+		this.GetNode<AudioStreamPlayer2D>("WinMusic").Play();
+	}
+
 	private void Player_Died()
 	{
 		game.PlayerScore = ((HUD)GetNode("HUD")).GetCoins();
@@ -162,7 +175,7 @@ public class Level1 : Node
 		this.GetNode<AudioStreamPlayer2D>("PlayerDiedSound").Play();
 	}
 
-	private void Level_Complete()
+	private void LevelComplete()
 	{
 		game.PlayerScore = ((HUD)GetNode("HUD")).GetCoins();
 
@@ -178,19 +191,31 @@ public class Level1 : Node
 		((AudioStreamPlayer2D)GetNode("Level1Music")).Playing = false;
 		((AudioStreamPlayer2D)GetNode("Boss1Music")).Playing = true;
 
+		this.GetNode<HUD>("HUD").ShowBossHealthBar();
+
 		var boss = (PackedScene)ResourceLoader.Load("res://Components/Boss1.tscn");
 		Boss1 bossInstance = (Boss1)boss.Instance();
-		//daeInstance.SetVariety(variety);
 		AddChild(bossInstance);
 
-		fightingBoss = true;
+		this.GetNode("Boss1").Connect("BossDefeated", this, nameof(Boss_Defeated));
 
-		//game.GotoScene(Generic2dGame.Scenes.Level1Boss);
+		fightingBoss = true;
 	}
 
+	// FIXME - Tie this to a timer, and not just on the sound completing.
 	private void _on_PlayerDiedSound_finished()
 	{
-		game.PlayerScore = ((HUD)GetNode("HUD")).GetCoins();
+		GotoGameover();
+	}
+	
+	private void _on_WinMusic_finished()
+	{
+		GotoGameover();
+	}
+
+	private void GotoGameover()
+	{
+		game.PlayerScore = GetNode<HUD>("HUD").GetCoins();
 
 		if (game.PlayerScore > game.HighestScore)
 		{
