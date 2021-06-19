@@ -160,6 +160,7 @@ public class Level1 : Node
 	{
 		this.GetNode<AudioStreamPlayer2D>("Boss1Music").Stop();
 		this.GetNode<AudioStreamPlayer2D>("WinMusic").Play();
+		this.GetNode<Timer>("WinMusicTimer").Start();
 	}
 
 	private void Player_Died()
@@ -209,6 +210,12 @@ public class Level1 : Node
 	}
 	
 	private void _on_WinMusic_finished()
+	{
+		// FIXME - have this go to the credits screen, instead of game over.
+		GotoGameover();
+	}
+
+	private void _on_WinMusicTimer_timeout()
 	{
 		GotoGameover();
 	}

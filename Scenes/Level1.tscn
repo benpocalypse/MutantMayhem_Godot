@@ -47,5 +47,11 @@ stream = ExtResource( 9 )
 [node name="WinMusic" type="AudioStreamPlayer2D" parent="."]
 position = Vector2( 641.699, 381.484 )
 stream = ExtResource( 10 )
+
+[node name="WinMusicTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
 [connection signal="finished" from="PlayerDiedSound" to="." method="_on_PlayerDiedSound_finished"]
 [connection signal="finished" from="WinMusic" to="." method="_on_WinMusic_finished"]
+[connection signal="timeout" from="WinMusicTimer" to="." method="_on_WinMusicTimer_timeout"]

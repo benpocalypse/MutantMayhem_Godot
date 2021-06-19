@@ -94,5 +94,6 @@ centered = false
 [node name="BossName" type="Sprite" parent="."]
 position = Vector2( 1130, 605 )
 texture = ExtResource( 10 )
+
 [connection signal="area_entered" from="MoneyBag/Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="button_down" from="PauseButton" to="." method="_on_TextureButton_button_down"]

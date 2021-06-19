@@ -84,7 +84,7 @@ public class DirectAttackEnemy : IEnemy
 
 	public void SetStartingPosition(Vector2 startingPosition)
 	{
-		Position = startingPosition; 
+		this.Position = startingPosition; 
 		positionDifference = playerPosition - Position;
 	}
 
@@ -139,7 +139,7 @@ public class DirectAttackEnemy : IEnemy
 				aSprite.Playing = true;
 
 				Health = 1;
-				speed = 0.10f;
+				speed = 0.18f;
 				break;
 
 			default:

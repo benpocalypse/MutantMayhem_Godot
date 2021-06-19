@@ -72,6 +72,7 @@ position = Vector2( 642.292, 354.881 )
 scale = Vector2( 1.12518, 1.16821 )
 z_index = -2
 texture = ExtResource( 2 )
+
 [connection signal="pressed" from="StartGameButton" to="." method="_on_StartGameButton_pressed"]
 [connection signal="pressed" from="QuitGameButton" to="." method="_on_QuitGameButton_pressed"]
 [connection signal="finished" from="ButtonSound" to="." method="_on_ButtonSound_finished"]

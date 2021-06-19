@@ -188,7 +188,6 @@ public class HUD : Node2D
 
 	public void ShowBossHealthBar()
 	{
-		this.GetNode<Sprite>("ProgressBarBorder").Visible = false;
 		this.GetNode<Sprite>("ProgressBarProgress").Visible = false;
 		this.GetNode<Sprite>("BossHealth").Visible = true;
 		this.GetNode<Sprite>("BossName").Visible = true;

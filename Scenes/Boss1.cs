@@ -20,12 +20,12 @@ public class Boss1 : IEnemy
     private float currentRadius = 270;
     private const float originalRadius = 270;
     private const float minimumRadiusLimit = 20;
-    private const float shrinkSpeed = 5.0f;
+    private const float shrinkSpeed = 4.0f;
     private bool movingClockwise = true;
     private float waveSpeed = 1f;
     private float moveSpeed = 0.55f;
     private float currentAngle = 270.0f;
-    private float shootProjectileLimit = 5.0f;
+    private float shootProjectileLimit = 4.0f;
     private float shootProjectileTimer = 0f;
 
     private MovementPhase Phase = MovementPhase.JustEntered;
@@ -34,8 +34,8 @@ public class Boss1 : IEnemy
     {
         this.Position = new Vector2(Generic2dGame.ScreenWidth / 2, -80);
 
-        Health = 5;
-        TotalHealth = 5;
+        Health = 7;
+        TotalHealth = 7;
 
         var sprite = this.GetNode("Sprite");
         Area = ((Area2D)sprite.GetNode("Area2D"));
@@ -92,13 +92,19 @@ public class Boss1 : IEnemy
                 }
                 else
                 {
+                    if (shootProjectileLimit > 2.0f)
+                    {
+                        shootProjectileLimit -= 0.3f;
+                    }
+
                     shootProjectileTimer = 0.0f;
 
                     var dae = (PackedScene)ResourceLoader.Load("res://Components/DirectAttackEnemy.tscn");
                     DirectAttackEnemy daeInstance = (DirectAttackEnemy)dae.Instance();
                     daeInstance.SetVariety(3);
-                    daeInstance.SetStartingPosition(newPoint);
-                    AddChild(daeInstance);
+                    this.GetParent().AddChild(daeInstance);
+                    var temp = this.Position;
+                    daeInstance.SetStartingPosition(temp);
                 }
 
                 oldPosition = newPoint;
@@ -115,6 +121,8 @@ public class Boss1 : IEnemy
                 movingClockwise = !movingClockwise;
 
                 shootProjectileTimer = 0.0f;
+                DamageToTake = 0;
+                moveSpeed += 4.0f;
 
                 Phase = MovementPhase.MovingInCircle;
                 break;
