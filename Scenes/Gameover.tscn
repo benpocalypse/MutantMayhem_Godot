@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Gameover.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Audio/Sfx/sfx_sounds_button11.wav" type="AudioStream" id=2]
 [ext_resource path="res://Assets/Audio/Music/Komiku_-_20_-_SUPER_POUPI.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Assets/Misc/HUD/RestartButton.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://Assets/Fonts/Crayawn-v58y.ttf"
@@ -24,16 +25,6 @@ font_data = SubResource( 3 )
 
 [node name="Gameover" type="Node2D"]
 script = ExtResource( 1 )
-
-[node name="Button" type="Button" parent="."]
-margin_left = 1072.0
-margin_top = 616.0
-margin_right = 1216.0
-margin_bottom = 664.0
-text = "Restart"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ScoreText" type="RichTextLabel" parent="."]
 margin_left = 486.0
@@ -75,7 +66,19 @@ __meta__ = {
 }
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 640, 344 )
 stream = ExtResource( 3 )
 autoplay = true
-[connection signal="button_down" from="Button" to="." method="_on_Button_button_down"]
+
+[node name="TextureButton" type="TextureButton" parent="."]
+margin_left = 1032.0
+margin_top = 568.0
+margin_right = 1261.0
+margin_bottom = 698.0
+texture_normal = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="finished" from="ButtonSound" to="." method="_on_ButtonSound_finished"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_TextureButton_pressed"]

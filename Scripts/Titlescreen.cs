@@ -23,7 +23,7 @@ public class Titlescreen : Node
 
 		if (Input.IsActionJustPressed("ui_accept"))
 		{
-			_on_StartGameButton_pressed();
+			_on_StartButton_pressed();
 		}
 
 		if (Input.IsActionJustReleased("ui_right"))
@@ -32,12 +32,13 @@ public class Titlescreen : Node
 		}
 	}
 
-	private void _on_QuitGameButton_pressed()
+	private void _on_QuitButton_pressed()
 	{
+		this.GetNode<AudioStreamPlayer2D>("ButtonSound").Play();
 		GetTree().Quit();
 	}
 
-	private void _on_StartGameButton_pressed()
+	private void _on_StartButton_pressed()
 	{
 		startGameNext = true;
 		this.GetNode<AudioStreamPlayer2D>("ButtonSound").Play();

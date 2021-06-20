@@ -82,6 +82,7 @@ texture = ExtResource( 6 )
 centered = false
 
 [node name="ButtonSound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 640, 336 )
 stream = ExtResource( 8 )
 
 [node name="BossHealth" type="Sprite" parent="."]

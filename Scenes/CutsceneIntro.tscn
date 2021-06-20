@@ -447,6 +447,7 @@ texture = ExtResource( 8 )
 [node name="ScientistSmilingWalking" type="AnimatedSprite" parent="AnimationPlayer/ScaffoldingScientistWalk1"]
 position = Vector2( 1112.35, 163.546 )
 frames = SubResource( 3 )
+frame = 1
 playing = true
 
 [node name="ScaffoldingScientistCloseupBanana" type="Node2D" parent="AnimationPlayer"]
@@ -556,5 +557,5 @@ texture = ExtResource( 8 )
 [node name="JanitorWalking" type="AnimatedSprite" parent="AnimationPlayer/CloseupBananaLanding"]
 position = Vector2( 40.433, 951.366 )
 frames = SubResource( 6 )
-frame = 2
+frame = 3
 playing = true

@@ -16,11 +16,11 @@ public class Gameover : Node2D
 	{
 		if (Input.IsActionJustReleased("ui_left") || Input.IsActionJustPressed("ui_accept") )
 		{
-			_on_Button_button_down();
+			_on_TextureButton_pressed();
 		}
 	}
 
-	private void _on_Button_button_down()
+	private void _on_TextureButton_pressed()
 	{
 		this.GetNode<AudioStreamPlayer2D>("ButtonSound").Play();
 	}

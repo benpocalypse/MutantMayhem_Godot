@@ -97,10 +97,10 @@ public class DirectAttackEnemy : IEnemy
 				var image1 = ((Texture)GD.Load("res://Assets/Enemies/Bomb1.png"));
 
 				aSprite.Frames = new SpriteFrames();
-    			aSprite.Frames.AddAnimation("default");
-    			aSprite.Frames.AddFrame("default", image1, 0);
-    			aSprite.Frames.SetAnimationLoop("default", true);
-    			aSprite.Frames.SetAnimationSpeed("default", 5.0f);
+				aSprite.Frames.AddAnimation("default");
+				aSprite.Frames.AddFrame("default", image1, 0);
+				aSprite.Frames.SetAnimationLoop("default", true);
+				aSprite.Frames.SetAnimationSpeed("default", 5.0f);
 
 				rotationSpeed = ((float)Rnd.Next(-50,50))*0.1f;
 				Health = 1;
@@ -111,10 +111,10 @@ public class DirectAttackEnemy : IEnemy
 				image1 = ((Texture)GD.Load("res://Assets/Enemies/Potion1.png"));
 
 				aSprite.Frames = new SpriteFrames();
-    			aSprite.Frames.AddAnimation("default");
-    			aSprite.Frames.AddFrame("default", image1, 0);
-    			aSprite.Frames.SetAnimationLoop("default", true);
-    			aSprite.Frames.SetAnimationSpeed("default", 5.0f);
+				aSprite.Frames.AddAnimation("default");
+				aSprite.Frames.AddFrame("default", image1, 0);
+				aSprite.Frames.SetAnimationLoop("default", true);
+				aSprite.Frames.SetAnimationSpeed("default", 5.0f);
 
 				rotationSpeed = ((float)Rnd.Next(-50,50))*0.1f;
 				Health = 2;
@@ -129,13 +129,13 @@ public class DirectAttackEnemy : IEnemy
 				var image4 = ((Texture)GD.Load("res://Assets/Enemies/Flyingfrog_4.png"));
 
 				aSprite.Frames = new SpriteFrames();
-    			aSprite.Frames.AddAnimation("default");
-    			aSprite.Frames.AddFrame("default", image1, 0);
-    			aSprite.Frames.AddFrame("default", image2, 1);
+				aSprite.Frames.AddAnimation("default");
+				aSprite.Frames.AddFrame("default", image1, 0);
+				aSprite.Frames.AddFrame("default", image2, 1);
 				aSprite.Frames.AddFrame("default", image3, 2);
 				aSprite.Frames.AddFrame("default", image4, 3);
-    			aSprite.Frames.SetAnimationLoop("default", true);
-    			aSprite.Frames.SetAnimationSpeed("default", 40.0f);
+				aSprite.Frames.SetAnimationLoop("default", true);
+				aSprite.Frames.SetAnimationSpeed("default", 30.0f);
 				aSprite.Playing = true;
 
 				Health = 1;
