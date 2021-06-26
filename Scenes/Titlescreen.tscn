@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/Titlescreen.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Backgrounds/Titlescreen.png" type="Texture" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://Assets/Audio/Sfx/sfx_sounds_button11.wav" type="AudioStream" id=5]
 [ext_resource path="res://Assets/Misc/HUD/QuitButton.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Misc/HUD/StartButton.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Misc/HUD/StartButton_Pressed.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Misc/HUD/QuitButton_Pressed.png" type="Texture" id=9]
 
 [sub_resource type="Animation" id=1]
 resource_name = "SlowRotation"
@@ -61,6 +63,7 @@ margin_top = 144.0
 margin_right = -239.0
 margin_bottom = 273.0
 texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -71,6 +74,7 @@ margin_top = 144.0
 margin_right = 314.0
 margin_bottom = 273.0
 texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

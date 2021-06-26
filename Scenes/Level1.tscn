@@ -35,6 +35,7 @@ z_index = -4
 texture = ExtResource( 5 )
 
 [node name="HUD" parent="." instance=ExtResource( 8 )]
+z_index = 1
 
 [node name="PlayerDiedSound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2( 642.053, 380.777 )

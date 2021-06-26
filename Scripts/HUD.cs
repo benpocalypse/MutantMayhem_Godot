@@ -39,6 +39,7 @@ public class HUD : Node2D
 		Engine.TimeScale = 1.0f;
 
 		moneyBagOriginalScale = ((Sprite)GetNode("MoneyBag")).Scale;
+		this.GetNode<Sprite>("ProgressBarProgress").Visible = true;
 	}
 
 	public override void _Process(float delta)
@@ -174,15 +175,17 @@ public class HUD : Node2D
 	{
 		if (this.GetNode<Sprite>("ProgressBarProgress").Visible == true)
 		{
+			//GD.Print($"Progress = {progress}");
+			
 			if (progress >= 1.0f && (levelCompleteEmitted == false) )
 			{
 				levelProgress = progress;
 
 				EmitSignal(nameof(LevelComplete));
-					levelCompleteEmitted = true;
+				levelCompleteEmitted = true;
 			}
 
-			this.GetNode<Sprite>("ProgressBarProgress").Scale = new Vector2(levelProgress, 1.0f);
+			this.GetNode<Sprite>("ProgressBarProgress").Scale = new Vector2(progress, 1.0f);
 		}
 	}
 

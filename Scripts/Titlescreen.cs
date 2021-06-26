@@ -28,7 +28,7 @@ public class Titlescreen : Node
 
 		if (Input.IsActionJustReleased("ui_right"))
 		{
-			_on_CreditsButton_pressed();
+			
 		}
 	}
 
@@ -46,20 +46,9 @@ public class Titlescreen : Node
 
 	private void _on_ButtonSound_finished()
 	{
-		var game = (Generic2dGame)GetNode("/root/Generic2dGame");
-
 		if (startGameNext == true)
 		{
-			game.GotoScene(Generic2dGame.Scenes.Level1);
+			game.GotoScene(Generic2dGame.Scenes.CutsceneIntro);
 		}
-		else
-		{
-			game.GotoScene(Generic2dGame.Scenes.CreditsScreen);
-		}
-	}
-
-	private void _on_CreditsButton_pressed()
-	{
-		this.GetNode<AudioStreamPlayer2D>("ButtonSound").Play();
 	}
 }

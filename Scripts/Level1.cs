@@ -4,9 +4,13 @@ using System;
 public class Level1 : Node
 {
 	private ulong time = 0;
-	private ulong addSpeed = 3;
 	private float ticks = 0.0f;
-	private float totalTicksForLevel = 90.0f;
+	private float ticksCounter = 0.0f;
+	
+	// FIXME - Move the below variables to the global singleton to allow for difficulty settings.
+	private float totalTicksForLevel = 60.0f;
+	private ulong addSpeed = 3;
+	
 	private int numEnemies = 0;
 	private bool fightingBoss = false;
 	private Random Rnd = new Random();
@@ -35,19 +39,23 @@ public class Level1 : Node
 
 		PopulateClouds(prePopulate: true);
 
-		LevelComplete();
+		//LevelComplete();
 	}
 
 	public override void _Process(float delta)
 	{
 		ticks += delta;
+		ticksCounter += delta;
 
-		if (ticks > 1.0f)
+		if (ticks >= 1.0f)
 		{
 			time++;
 			ticks = 0.0f;
-
-			this.GetNode<HUD>("HUD").SetProgress((float)time/totalTicksForLevel);
+		}
+		
+		if (!fightingBoss)
+		{
+			this.GetNode<HUD>("HUD").SetProgress(ticksCounter/totalTicksForLevel);
 		}
 
 		if ( ((time % 3) == 0) && (ticks == 0.0f) )
@@ -188,6 +196,8 @@ public class Level1 : Node
 		game.PlayerHealth = this.GetNode<HUD>("HUD").GetHealth();
 
 		game.StorePersistedData();
+		
+		// FIXME - Have this also destroy all the enemies on screen.
 
 		((AudioStreamPlayer2D)GetNode("Level1Music")).Playing = false;
 		((AudioStreamPlayer2D)GetNode("Boss1Music")).Playing = true;

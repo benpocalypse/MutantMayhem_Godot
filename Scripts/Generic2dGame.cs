@@ -14,7 +14,7 @@ public class Generic2dGame : Node
 	{
 		Unknown,
 		Titlescreen,
-		CharacterSelectScreen,
+		CutsceneIntro,
 		CreditsScreen,
 		Level1,
 		//Level2,
