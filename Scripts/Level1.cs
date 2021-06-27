@@ -80,7 +80,11 @@ public class Level1 : Node
 				{
 					AddDirectAttackEnemy(2);
 				}
-				addSpeed -= 1;
+				
+				if (addSpeed > 1)
+				{
+					addSpeed -= 1;
+				}
 			}
 			else if (numEnemies < 20)
 			{
@@ -110,7 +114,11 @@ public class Level1 : Node
 						AddCircularAttackEnemy();
 					}
 				}
-				addSpeed -= 1;
+				
+				if (addSpeed > 1)
+				{
+					addSpeed -= 1;
+				}
 			}
 			else
 			{

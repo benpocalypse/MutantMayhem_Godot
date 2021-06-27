@@ -17,4 +17,10 @@ mono_crash.*.json
 # Plugin specific ignores
 screenshots/
 
+# Binary ignores
+/bin
+obj
 
+# IDE ignores
+.vscode/
+.vs/
