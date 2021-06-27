@@ -3,6 +3,8 @@ using System;
 
 public class DirectAttackEnemy : IEnemy
 {
+	private Generic2dGame game;
+	
 	private float rotationSpeed = 0.0f;
 
 	// TODO - This won't be true on levels where we're not flying.
@@ -12,6 +14,8 @@ public class DirectAttackEnemy : IEnemy
 
 	public override void _Ready()
 	{
+		game = (Generic2dGame)GetNode("/root/Generic2dGame");
+		
 		EntranceSide = ((Side)Rnd.Next(0, 4));
 
 		switch (EntranceSide)
@@ -139,7 +143,7 @@ public class DirectAttackEnemy : IEnemy
 				aSprite.Playing = true;
 
 				Health = 1;
-				speed = 0.18f;
+				speed = game.Boss1ProjectileSpeed;
 				break;
 
 			default:

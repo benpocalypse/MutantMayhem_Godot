@@ -20,22 +20,26 @@ public class Boss1 : IEnemy
 	private float currentRadius = 270;
 	private const float originalRadius = 270;
 	private const float minimumRadiusLimit = 20;
-	private const float shrinkSpeed = 4.0f;
+	private float shrinkSpeed = 4.0f;
 	private bool movingClockwise = true;
-	private float waveSpeed = 1f;
 	private float moveSpeed = 0.55f;
 	private float currentAngle = 270.0f;
-	private float shootProjectileLimit = 4.0f;
+	private float shootProjectileLimit = 0f;
 	private float shootProjectileTimer = 0f;
+	
+	private Generic2dGame game;
 
 	private MovementPhase Phase = MovementPhase.JustEntered;
 
 	public override void _Ready()
 	{
+		game = (Generic2dGame)GetNode("/root/Generic2dGame");
+		
 		this.Position = new Vector2(Generic2dGame.ScreenWidth / 2, -80);
 
-		Health = 7;
-		TotalHealth = 7;
+		Health = game.Boss1Health;
+		TotalHealth = game.Boss1Health;
+		shrinkSpeed = game.Boss1ShrinkSpeed;
 
 		var sprite = this.GetNode("Sprite");
 		Area = ((Area2D)sprite.GetNode("Area2D"));
@@ -61,7 +65,7 @@ public class Boss1 : IEnemy
 				else
 				{
 					oldPosition = this.Position;
-					moveSpeed = 30.0f;
+					moveSpeed = game.Boss1MoveSpeed;
 					Phase = MovementPhase.MovingInCircle;
 				}
 				break;
@@ -87,13 +91,13 @@ public class Boss1 : IEnemy
 				}
 
 				// Count up and then shoot fly's at the player!
-				if (shootProjectileTimer < shootProjectileLimit)
+				if (shootProjectileTimer < game.Boss1ShootStartingTimer)
 				{
 					shootProjectileTimer += delta;
 				}
 				else
 				{
-					if (shootProjectileLimit > 2.0f)
+					if (shootProjectileLimit > game.Boss1ShootMinimumTime)
 					{
 						shootProjectileLimit -= 0.3f;
 					}
@@ -107,10 +111,10 @@ public class Boss1 : IEnemy
 
 					var dae = (PackedScene)ResourceLoader.Load("res://Components/DirectAttackEnemy.tscn");
 					DirectAttackEnemy daeInstance = (DirectAttackEnemy)dae.Instance();
-					daeInstance.SetVariety(3);
 					this.GetParent().AddChild(daeInstance);
 					var temp = this.Position;
 					daeInstance.SetStartingPosition(temp);
+					daeInstance.SetVariety(3);
 				}
 
 				oldPosition = newPoint;

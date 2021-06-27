@@ -14,12 +14,20 @@ public class Generic2dGame : Node
 	{
 		Unknown,
 		Titlescreen,
-		CutsceneIntro,
-		CreditsScreen,
+		CutsceneIntro,		
 		Level1,
 		//Level2,
 		//Level3,
+		CreditsScreen,
 		Gameover
+	};
+	
+	public enum Difficulty
+	{
+		Easy,
+		Medium,
+		Hard,
+		Expert
 	};
 
 	public const int ScreenWidth = 1280;
@@ -32,6 +40,21 @@ public class Generic2dGame : Node
 	public int PlayerHealth = 3;
 	public int LeftArmDamage = 1;
 	public int RightArmDamage = 1;
+	
+	// Difficulty related settings
+	public Difficulty DifficultyLevel = Difficulty.Medium;
+	public ulong EnemySpawnRate = 3;
+	public float PlayerMaxRotationSpeed = 2.0f;
+	public float Level1Duration = 60.0f;
+	
+	public ulong Level1EnemyAddSpeed = 3;
+	
+	public float Boss1ShootStartingTimer = 4.0f;
+	public float Boss1ShootMinimumTime = 2.0f;
+	public float Boss1ShrinkSpeed = 4.0f;
+	public float Boss1MoveSpeed = 30.0f;
+	public float Boss1ProjectileSpeed = 0.18f;
+	public int Boss1Health = 7;
 
 	// Data to persist
 	private const string saveFile = "user://saveFile.save";
@@ -100,6 +123,65 @@ public class Generic2dGame : Node
 			HighestScore = (int)file.GetVar();
 
 			file.Close();
+		}
+	}
+	
+	public void SetDifficulty(Difficulty _diff)
+	{
+		switch (_diff)
+		{
+			case Difficulty.Easy:
+				DifficultyLevel = Difficulty.Easy;
+				EnemySpawnRate = 2;
+				PlayerMaxRotationSpeed = 3.0f;
+				
+				Level1Duration = 45.0f;
+				Level1EnemyAddSpeed = 4;
+				
+				Boss1Health = 4;
+				Boss1ShootStartingTimer = 5.0f;
+				Boss1ShootMinimumTime = 3.0f;
+				Boss1ProjectileSpeed = 0.13f;
+				Boss1MoveSpeed = 30.0f;
+				Boss1ShrinkSpeed = 3.0f;
+				break;
+				
+			case Difficulty.Medium:
+				DifficultyLevel = Difficulty.Medium;
+				EnemySpawnRate = 3;
+				PlayerMaxRotationSpeed = 2.0f;
+				
+				Level1Duration = 60.0f;
+				Level1EnemyAddSpeed = 3;
+				
+				Boss1Health = 7;
+				Boss1ShootStartingTimer = 4.0f;
+				Boss1ShootMinimumTime = 2.0f;
+				Boss1ProjectileSpeed = 0.18f;
+				Boss1MoveSpeed = 35.0f;
+				Boss1ShrinkSpeed = 4.0f;
+				break;
+				
+			case Difficulty.Hard:
+				DifficultyLevel = Difficulty.Hard;
+				EnemySpawnRate = 4;
+				PlayerMaxRotationSpeed = 1.5f;
+				
+				Level1EnemyAddSpeed = 2;
+				Level1Duration = 90.0f;
+				
+				Boss1Health = 10;
+				Boss1ShootStartingTimer = 3.0f;
+				Boss1ShootMinimumTime = 0.5f;
+				Boss1ProjectileSpeed = 0.30f;
+				Boss1MoveSpeed = 40.0f;
+				Boss1ShrinkSpeed = 6.0f;
+				break;
+				
+			case Difficulty.Expert:
+				// FIXME - implement this setting
+				//         Maybe give the player 1 health?
+				break;
 		}
 	}
 

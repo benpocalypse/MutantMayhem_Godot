@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Scripts/Titlescreen.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Backgrounds/Titlescreen.png" type="Texture" id=2]
@@ -9,6 +9,12 @@
 [ext_resource path="res://Assets/Misc/HUD/StartButton.png" type="Texture" id=7]
 [ext_resource path="res://Assets/Misc/HUD/StartButton_Pressed.png" type="Texture" id=8]
 [ext_resource path="res://Assets/Misc/HUD/QuitButton_Pressed.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Misc/HUD/EasyButton_Pressed.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Misc/HUD/EasyButton.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Misc/HUD/MediumButton.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Misc/HUD/MediumButton_Pressed.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Misc/HUD/HardButton.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Misc/HUD/HardButton_Pressed.png" type="Texture" id=15]
 
 [sub_resource type="Animation" id=1]
 resource_name = "SlowRotation"
@@ -79,6 +85,46 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="EasyButton" type="TextureButton" parent="."]
+margin_left = 586.0
+margin_top = -24.0
+margin_right = 799.0
+margin_bottom = 76.0
+toggle_mode = true
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MediumButton" type="TextureButton" parent="."]
+margin_left = 592.0
+margin_top = 64.0
+margin_right = 785.0
+margin_bottom = 164.0
+toggle_mode = true
+pressed = true
+texture_normal = ExtResource( 12 )
+texture_pressed = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HardButton" type="TextureButton" parent="."]
+margin_left = 592.0
+margin_top = 160.0
+margin_right = 773.0
+margin_bottom = 260.0
+toggle_mode = true
+texture_normal = ExtResource( 14 )
+texture_pressed = ExtResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="finished" from="ButtonSound" to="." method="_on_ButtonSound_finished"]
 [connection signal="pressed" from="QuitButton" to="." method="_on_QuitButton_pressed"]
 [connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="EasyButton" to="." method="_on_EasyButton_pressed"]
+[connection signal="pressed" from="MediumButton" to="." method="_on_MediumButton_pressed"]
+[connection signal="pressed" from="HardButton" to="." method="_on_HardButton_pressed"]

@@ -36,10 +36,11 @@ public class Level1 : Node
 
 		game.RestorePersistedData();
 		game.FirstTimePlaying = false;
+		
+		addSpeed = game.Level1EnemyAddSpeed;
+		totalTicksForLevel = game.Level1Duration;
 
 		PopulateClouds(prePopulate: true);
-
-		//LevelComplete();
 	}
 
 	public override void _Process(float delta)
@@ -55,7 +56,7 @@ public class Level1 : Node
 		
 		if (!fightingBoss)
 		{
-			this.GetNode<HUD>("HUD").SetProgress(ticksCounter/totalTicksForLevel);
+			this.GetNode<HUD>("HUD").SetProgress(ticksCounter / totalTicksForLevel);
 		}
 
 		if ( ((time % 3) == 0) && (ticks == 0.0f) )

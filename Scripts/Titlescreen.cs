@@ -21,14 +21,58 @@ public class Titlescreen : Node
 
 		foreground.ApplyScale(new Vector2(1 + (factor/200), 1 + (factor/200)));
 
-		if (Input.IsActionJustPressed("ui_accept"))
+		if ( //Input.IsActionJustPressed("ui_right")	||
+			 Input.IsActionJustPressed("ui_accept") )
 		{
 			_on_StartButton_pressed();
 		}
-
-		if (Input.IsActionJustReleased("ui_right"))
+		
+		if ( //Input.IsActionJustPressed("ui_left")	||
+			 Input.IsActionJustPressed("ui_cancel") )
 		{
-			
+			_on_QuitButton_pressed();
+		}
+		
+		if ( Input.IsActionJustReleased("ui_up") )
+		{
+			switch (game.DifficultyLevel)
+			{
+				case Generic2dGame.Difficulty.Easy:
+					_on_HardButton_pressed();
+					break;
+					
+				case Generic2dGame.Difficulty.Medium:
+					_on_EasyButton_pressed();
+					break;
+					
+				case Generic2dGame.Difficulty.Hard:
+					_on_MediumButton_pressed();
+					break;
+					
+				case Generic2dGame.Difficulty.Expert:
+					break;
+			}
+		}
+		
+		if ( Input.IsActionJustReleased("ui_down") )
+		{
+			switch (game.DifficultyLevel)
+			{
+				case Generic2dGame.Difficulty.Easy:
+					_on_MediumButton_pressed();
+					break;
+					
+				case Generic2dGame.Difficulty.Medium:
+					_on_HardButton_pressed();
+					break;
+					
+				case Generic2dGame.Difficulty.Hard:
+					_on_EasyButton_pressed();
+					break;
+					
+				case Generic2dGame.Difficulty.Expert:
+					break;
+			}
 		}
 	}
 
@@ -50,5 +94,29 @@ public class Titlescreen : Node
 		{
 			game.GotoScene(Generic2dGame.Scenes.CutsceneIntro);
 		}
+	}
+	
+	private void _on_EasyButton_pressed()
+	{
+		game.SetDifficulty(Generic2dGame.Difficulty.Easy);
+		this.GetNode<TextureButton>("EasyButton").Pressed = true;
+		this.GetNode<TextureButton>("MediumButton").Pressed = false;
+		this.GetNode<TextureButton>("HardButton").Pressed = false;
+	}
+
+	private void _on_MediumButton_pressed()
+	{
+		game.SetDifficulty(Generic2dGame.Difficulty.Medium);
+		this.GetNode<TextureButton>("EasyButton").Pressed = false;
+		this.GetNode<TextureButton>("MediumButton").Pressed = true;
+		this.GetNode<TextureButton>("HardButton").Pressed = false;
+	}
+
+	private void _on_HardButton_pressed()
+	{
+		game.SetDifficulty(Generic2dGame.Difficulty.Hard);
+		this.GetNode<TextureButton>("EasyButton").Pressed = false;
+		this.GetNode<TextureButton>("MediumButton").Pressed = false;
+		this.GetNode<TextureButton>("HardButton").Pressed = true;
 	}
 }

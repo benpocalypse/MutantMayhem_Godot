@@ -3,7 +3,7 @@ using System;
 
 public class IEnemy : Node2D
 {
-    public enum Side
+	public enum Side
 	{
 		Top = 0,
 		Left,
@@ -23,10 +23,10 @@ public class IEnemy : Node2D
 	public int DamageToTake = 0;
 	public Area2D Area;
 
-    public override void _Ready()
-    {
+	public override void _Ready()
+	{
 
-    }
+	}
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
 //  public override void _Process(float delta)

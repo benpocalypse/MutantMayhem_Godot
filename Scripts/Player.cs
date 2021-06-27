@@ -9,7 +9,7 @@ public class Player : Node2D
 	private float rotationInDegrees = 0.0f;
 	private float rotationAcceleration = 0.0f;
 	private const float rotationAccelerationDelta = 12.0f;
-	private const float maxRotationAcceleration = 2f;
+	private float maxRotationAcceleration = 2f;
 	private bool rotatingLeft = false;
 	private bool rotatingRight = false;
 	private string previousRotationDirection = string.Empty;
@@ -23,6 +23,8 @@ public class Player : Node2D
 	public override void _Ready()
 	{
 		game = (Generic2dGame)GetNode("/root/Generic2dGame");
+		
+		maxRotationAcceleration = game.PlayerMaxRotationSpeed;
 	}
 
 	public override void _Process(float delta)

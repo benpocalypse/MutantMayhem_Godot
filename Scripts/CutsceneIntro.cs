@@ -19,11 +19,12 @@ public class CutsceneIntro : Node2D
   // Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(float delta)
 	{
-		if (Input.IsActionJustPressed("ui_accept") || 
-			Input.IsActionJustPressed("ui_left") ||
-			Input.IsActionJustPressed("ui_right") || 
-			Input.IsActionJustPressed("ui_select") || 
-			Input.IsActionJustPressed("ui_cancel"))
+		if (Input.IsActionJustPressed("ui_accept")	|| 
+			Input.IsActionJustPressed("ui_left")	||
+			Input.IsActionJustPressed("ui_right")	|| 
+			Input.IsActionJustPressed("ui_select")	|| 
+			Input.IsActionJustPressed("ui_cancel")	||
+			Input.IsActionJustPressed("ui_touch"))
 		{
 			game.GotoScene(Generic2dGame.Scenes.Level1);
 		}

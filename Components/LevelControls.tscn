@@ -19,6 +19,7 @@ visibility_mode = 1
 position = Vector2( 640, 0 )
 shape = SubResource( 2 )
 visibility_mode = 1
+
 [connection signal="pressed" from="LeftButton" to="." method="_on_LeftButton_pressed"]
 [connection signal="released" from="LeftButton" to="." method="_on_LeftButton_released"]
 [connection signal="pressed" from="RightButton" to="." method="_on_RightButton_pressed"]
