@@ -172,7 +172,8 @@ public class Boss1 : IEnemy
 		aSprite.Play("default");
 	}
 
-	public void Hit(int damage, string guid)
+
+	public override void Hit(int damage, string guid)
 	{
 		if (guid == NodeGuid.ToString())
 		{

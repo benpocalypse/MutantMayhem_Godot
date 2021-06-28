@@ -45,9 +45,10 @@ public class Generic2dGame : Node
 	public Difficulty DifficultyLevel = Difficulty.Medium;
 	public ulong EnemySpawnRate = 3;
 	public float PlayerMaxRotationSpeed = 2.0f;
-	public float Level1Duration = 60.0f;
 	
+	public float Level1Duration = 60.0f;
 	public ulong Level1EnemyAddSpeed = 3;
+	public bool Level1Complete = false;
 	
 	public float Boss1ShootStartingTimer = 4.0f;
 	public float Boss1ShootMinimumTime = 2.0f;

@@ -8,13 +8,40 @@ public class Gameover : Node2D
 	public override void _Ready()
 	{
 		game = (Generic2dGame)GetNode("/root/Generic2dGame");
-		((RichTextLabel)this.GetNode("ScoreText")).BbcodeText = $"Final Score:  {game.PlayerScore}";
-		((RichTextLabel)this.GetNode("HighScoreText")).BbcodeText = $"High Score:  {game.HighestScore}";
+		
+		if (game.Level1Complete == true)
+		{
+			GetNode<Node2D>("Credits").Visible = true;
+			GetNode<Node2D>("HighScore").Visible = false;
+		}
+		else
+		{
+			GetNode<Node2D>("Credits").Visible = false;
+			GetNode<Node2D>("HighScore").Visible = true;
+		}
+		
+		((RichTextLabel)GetNode("HighScore/ScoreText")).BbcodeText = $"Final Score:  {game.PlayerScore}";
+		((RichTextLabel)GetNode("HighScore/HighScoreText")).BbcodeText = $"High Score:  {game.HighestScore}";
 	}
 	
 	public override void _Process(float delta)
 	{
-		if (Input.IsActionJustReleased("ui_left") || Input.IsActionJustPressed("ui_accept") )
+		if (game.Level1Complete == true)
+		{
+			var credits = GetNode<Node2D>("Credits/CreditsTextNode");
+			
+			if (credits.Position.y > -2700)
+			{
+				credits.Translate(new Vector2(0, (-50.0f)*delta));
+			}
+			else
+			{
+				GetNode<Node2D>("Credits").Visible = false;
+				GetNode<Node2D>("HighScore").Visible = true;
+			}
+		}
+		
+		if (Input.IsActionJustReleased("ui_right") || Input.IsActionJustPressed("ui_accept") )
 		{
 			_on_TextureButton_pressed();
 		}
@@ -22,7 +49,7 @@ public class Gameover : Node2D
 
 	private void _on_TextureButton_pressed()
 	{
-		this.GetNode<AudioStreamPlayer2D>("ButtonSound").Play();
+		GetNode<AudioStreamPlayer>("ButtonSound").Play();
 	}
 
 	private void _on_ButtonSound_finished()

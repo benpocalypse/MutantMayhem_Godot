@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/opening_credits.png-cbf4c8917a03c16de1f7e13280fda642.stex"
+path="res://.import/ThanksText.png-b2506e94db1e4894e6e3953cd3037a2e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Backgrounds/opening_credits.png"
-dest_files=[ "res://.import/opening_credits.png-cbf4c8917a03c16de1f7e13280fda642.stex" ]
+source_file="res://Assets/Cutscenes/Credits/ThanksText.png"
+dest_files=[ "res://.import/ThanksText.png-b2506e94db1e4894e6e3953cd3037a2e.stex" ]
 
 [params]
 

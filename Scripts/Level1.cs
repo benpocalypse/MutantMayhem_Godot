@@ -4,8 +4,11 @@ using System;
 public class Level1 : Node
 {
 	private ulong time = 0;
+	private float introTicks = 0.0f;
 	private float ticks = 0.0f;
 	private float ticksCounter = 0.0f;
+	private bool hideIntro = false;
+	private const float introTimeLimit = 3.0f;
 	
 	// FIXME - Move the below variables to the global singleton to allow for difficulty settings.
 	private float totalTicksForLevel = 60.0f;
@@ -45,106 +48,121 @@ public class Level1 : Node
 
 	public override void _Process(float delta)
 	{
-		ticks += delta;
-		ticksCounter += delta;
-
-		if (ticks >= 1.0f)
+		if (introTicks <= introTimeLimit)
 		{
-			time++;
-			ticks = 0.0f;
+			introTicks += delta;
+			
+			if (introTicks > introTimeLimit)
+			{
+				hideIntro = true;
+				GetNode<Node2D>("IntroText").Visible = false;
+			}
 		}
 		
-		if (!fightingBoss)
+		
+		if (hideIntro == true)
 		{
-			this.GetNode<HUD>("HUD").SetProgress(ticksCounter / totalTicksForLevel);
-		}
+			ticks += delta;
+			ticksCounter += delta;
 
-		if ( ((time % 3) == 0) && (ticks == 0.0f) )
-		{
-			PopulateClouds(prePopulate: false);
-		}
+			if (ticks >= 1.0f)
+			{
+				time++;
+				ticks = 0.0f;
+			}
+			
+			if (!fightingBoss)
+			{
+				this.GetNode<HUD>("HUD").SetProgress(ticksCounter / totalTicksForLevel);
+			}
 
-		if (((time % addSpeed) == 0) && (ticks == 0.0f) && !fightingBoss)
-		{
-			if (numEnemies < 10)
+			if ( ((time % 3) == 0) && (ticks == 0.0f) )
 			{
-				AddDirectAttackEnemy(1);
+				PopulateClouds(prePopulate: false);
 			}
-			else if ((numEnemies >= 10) && (numEnemies < 11))
+
+			if (((time % addSpeed) == 0) && (ticks == 0.0f) && !fightingBoss)
 			{
-				if (Rnd.NextDouble() < 0.8)
+				if (numEnemies < 10)
 				{
 					AddDirectAttackEnemy(1);
 				}
-				else
+				else if ((numEnemies >= 10) && (numEnemies < 11))
 				{
-					AddDirectAttackEnemy(2);
+					if (Rnd.NextDouble() < 0.8)
+					{
+						AddDirectAttackEnemy(1);
+					}
+					else
+					{
+						AddDirectAttackEnemy(2);
+					}
+					
+					if (addSpeed > 1)
+					{
+						addSpeed -= 1;
+					}
 				}
-				
-				if (addSpeed > 1)
+				else if (numEnemies < 20)
 				{
-					addSpeed -= 1;
+					if (Rnd.NextDouble() < 0.8)
+					{
+						AddDirectAttackEnemy(1);
+					}
+					else
+					{
+						AddDirectAttackEnemy(2);
+					}
 				}
-			}
-			else if (numEnemies < 20)
-			{
-				if (Rnd.NextDouble() < 0.8)
+				else if ((numEnemies >= 20) && (numEnemies < 21))
 				{
-					AddDirectAttackEnemy(1);
-				}
-				else
-				{
-					AddDirectAttackEnemy(2);
-				}
-			}
-			else if ((numEnemies >= 20) && (numEnemies < 21))
-			{
-				if (Rnd.NextDouble() < 0.6)
-				{
-					AddDirectAttackEnemy(1);
+					if (Rnd.NextDouble() < 0.6)
+					{
+						AddDirectAttackEnemy(1);
+					}
+					else
+					{
+						if (Rnd.NextDouble() < 0.6)
+						{
+							AddDirectAttackEnemy(2);
+						}
+						else
+						{
+							AddCircularAttackEnemy();
+						}
+					}
+					
+					if (addSpeed > 1)
+					{
+						addSpeed -= 1;
+					}
 				}
 				else
 				{
 					if (Rnd.NextDouble() < 0.6)
 					{
-						AddDirectAttackEnemy(2);
+						AddDirectAttackEnemy(1);
 					}
 					else
 					{
-						AddCircularAttackEnemy();
+						if (Rnd.NextDouble() < 0.8)
+						{
+							AddDirectAttackEnemy(2);
+						}
+						else
+						{
+							AddCircularAttackEnemy();
+						}
 					}
 				}
-				
-				if (addSpeed > 1)
-				{
-					addSpeed -= 1;
-				}
-			}
-			else
-			{
-				if (Rnd.NextDouble() < 0.6)
-				{
-					AddDirectAttackEnemy(1);
-				}
-				else
-				{
-					if (Rnd.NextDouble() < 0.8)
-					{
-						AddDirectAttackEnemy(2);
-					}
-					else
-					{
-						AddCircularAttackEnemy();
-					}
-				}
-			}
 
-			numEnemies++;
-		}
-		else // We're fighting the boss!
-		{
-			//var boss = this.GetNode<Boss1>("Boss1");
-			//this.GetNode<HUD>("HUD").SetBossHealthBarPercent((float)((float)boss.Health / (float)boss.TotalHealth));
+				numEnemies++;
+			}
+			else // We're fighting the boss!
+			{
+				//var boss = this.GetNode<Boss1>("Boss1");
+				//this.GetNode<HUD>("HUD").SetBossHealthBarPercent((float)((float)boss.Health / (float)boss.TotalHealth));
+			}
 		}
 	}
 
@@ -175,6 +193,7 @@ public class Level1 : Node
 
 	private void Boss_Defeated()
 	{
+		game.Level1Complete = true;
 		this.GetNode<AudioStreamPlayer2D>("Boss1Music").Stop();
 		this.GetNode<AudioStreamPlayer2D>("WinMusic").Play();
 		this.GetNode<Timer>("WinMusicTimer").Start();
@@ -203,10 +222,14 @@ public class Level1 : Node
 		}
 
 		game.PlayerHealth = this.GetNode<HUD>("HUD").GetHealth();
-
 		game.StorePersistedData();
 		
-		// FIXME - Have this also destroy all the enemies on screen.
+		// Get rid of any enemies that are still on-screen when the boss shows up.
+		var enemies = this.GetTree().GetNodesInGroup("enemies");
+		foreach (var enemy in enemies)
+		{
+			((IEnemy)enemy).Destroy();
+		}
 
 		((AudioStreamPlayer2D)GetNode("Level1Music")).Playing = false;
 		((AudioStreamPlayer2D)GetNode("Boss1Music")).Playing = true;
@@ -278,6 +301,7 @@ public class Level1 : Node
 		var dae = (PackedScene)ResourceLoader.Load("res://Components/DirectAttackEnemy.tscn");
 		DirectAttackEnemy daeInstance = (DirectAttackEnemy)dae.Instance();
 		daeInstance.SetVariety(variety);
+		daeInstance.AddToGroup("enemies");
 		AddChild(daeInstance);
 	}
 
@@ -285,6 +309,7 @@ public class Level1 : Node
 	{
 		var cae = (PackedScene)ResourceLoader.Load("res://Components/CircularAttackEnemy.tscn");
 		CircularAttackEnemy caeInstance = (CircularAttackEnemy)cae.Instance();
+		caeInstance.AddToGroup("enemies");
 		AddChild(caeInstance);
 	}
 }
