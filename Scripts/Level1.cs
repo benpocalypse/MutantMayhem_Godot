@@ -10,7 +10,6 @@ public class Level1 : Node
 	private bool hideIntro = false;
 	private const float introTimeLimit = 3.0f;
 	
-	// FIXME - Move the below variables to the global singleton to allow for difficulty settings.
 	private float totalTicksForLevel = 60.0f;
 	private ulong addSpeed = 3;
 	
@@ -157,11 +156,6 @@ public class Level1 : Node
 				}
 
 				numEnemies++;
-			}
-			else // We're fighting the boss!
-			{
-				//var boss = this.GetNode<Boss1>("Boss1");
-				//this.GetNode<HUD>("HUD").SetBossHealthBarPercent((float)((float)boss.Health / (float)boss.TotalHealth));
 			}
 		}
 	}

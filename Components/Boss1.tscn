@@ -6,7 +6,7 @@
 [ext_resource path="res://Assets/Enemies/Boss1_2.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Enemies/Boss1_5.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Audio/Sfx/sfx_damage_hit6.wav" type="AudioStream" id=6]
-[ext_resource path="res://Scenes/Boss1.cs" type="Script" id=7]
+[ext_resource path="res://Scripts/Boss1.cs" type="Script" id=7]
 [ext_resource path="res://Assets/Enemies/Boss2_1.png" type="Texture" id=8]
 
 [sub_resource type="SpriteFrames" id=1]

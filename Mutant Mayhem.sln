@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generic 2d", "Generic 2d.csproj", "{8EBA22BD-ACC4-4AD3-971D-8F1E520BF2E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mutant Mayhem", "Mutant Mayhem.csproj", "{8EBA22BD-ACC4-4AD3-971D-8F1E520BF2E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

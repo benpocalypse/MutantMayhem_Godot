@@ -14,7 +14,7 @@ public class Generic2dGame : Node
 	{
 		Unknown,
 		Titlescreen,
-		CutsceneIntro,		
+		CutsceneIntro,
 		Level1,
 		//Level2,
 		//Level3,
@@ -81,13 +81,6 @@ public class Generic2dGame : Node
 			GetTree().Quit();
 		}
 	}
-
-/*
-	public override void _Process(float delta)
-	{
-
-	}
-*/
 
 	public void StorePersistedData()
 	{
@@ -158,7 +151,7 @@ public class Generic2dGame : Node
 				Boss1Health = 7;
 				Boss1ShootStartingTimer = 4.0f;
 				Boss1ShootMinimumTime = 2.0f;
-				Boss1ProjectileSpeed = 0.18f;
+				Boss1ProjectileSpeed = 0.20f;
 				Boss1MoveSpeed = 35.0f;
 				Boss1ShrinkSpeed = 4.0f;
 				break;

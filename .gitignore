@@ -24,3 +24,6 @@ obj
 # IDE ignores
 .vscode/
 .vs/
+
+# Contains Secrets
+export_presets.cfg

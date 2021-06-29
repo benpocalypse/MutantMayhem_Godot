@@ -5,7 +5,6 @@ public class Player : Node2D
 {
 	private Generic2dGame game;
 
-	Random rnd = new Random();
 	private float rotationInDegrees = 0.0f;
 	private float rotationAcceleration = 0.0f;
 	private const float rotationAccelerationDelta = 12.0f;

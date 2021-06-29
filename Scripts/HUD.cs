@@ -3,8 +3,8 @@ using System;
 
 public class HUD : Node2D
 {
-	Generic2dGame game;
-	Random rnd = new Random();
+	private Generic2dGame game;
+	private Random rnd = new Random();
 
 	private int maxHealth = 3;
 	private int currentHealth = 3;
@@ -46,6 +46,7 @@ public class HUD : Node2D
 	{
 		if (Input.IsActionJustPressed("ui_accept"))
 		{
+			this.GetNode<TextureButton>("PauseButton").Pressed = !paused;
 			_on_TextureButton_button_down();
 		}
 
@@ -117,9 +118,9 @@ public class HUD : Node2D
 		maxHealth = _maxHealth;
 	}
 
-	public void SetCurrentHealth(int health)
+	public void SetCurrentHealth(int _health)
 	{
-		currentHealth = health;
+		currentHealth = _health;
 	}
 
 	public void SubtractOneHealth()
@@ -175,8 +176,6 @@ public class HUD : Node2D
 	{
 		if (this.GetNode<Sprite>("ProgressBarProgress").Visible == true)
 		{
-			//GD.Print($"Progress = {progress}");
-			
 			if (progress >= 1.0f && (levelCompleteEmitted == false) )
 			{
 				levelProgress = progress;

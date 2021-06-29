@@ -11,11 +11,13 @@ public class Gameover : Node2D
 		
 		if (game.Level1Complete == true)
 		{
+			GetNode<AudioStreamPlayer>("WinMusic").Playing = true;
 			GetNode<Node2D>("Credits").Visible = true;
 			GetNode<Node2D>("HighScore").Visible = false;
 		}
 		else
 		{
+			GetNode<AudioStreamPlayer>("LoseMusic").Playing = true;
 			GetNode<Node2D>("Credits").Visible = false;
 			GetNode<Node2D>("HighScore").Visible = true;
 		}
@@ -41,7 +43,7 @@ public class Gameover : Node2D
 			}
 		}
 		
-		if (Input.IsActionJustReleased("ui_right") || Input.IsActionJustPressed("ui_accept") )
+		if (Input.IsActionJustReleased("ui_cancel") || Input.IsActionJustPressed("ui_accept") )
 		{
 			_on_TextureButton_pressed();
 		}

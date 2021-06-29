@@ -15,20 +15,24 @@ public class Titlescreen : Node
 
 	public override void _Process(float delta)
 	{
+		var buildType = ProjectSettings.GetSetting("application/config/name/BuildType");
+		var versionMajor = ProjectSettings.GetSetting("application/config/name/VersionMajor");
+		var versionMinor = ProjectSettings.GetSetting("application/config/name/VersionMinor");
+		var versionBuild = ProjectSettings.GetSetting("application/config/name/VersionBuild");
+		((RichTextLabel)GetNode("VersionInfo")).BbcodeText = $"{buildType}:  v{versionMajor}.{versionMinor}.{versionBuild}";
+		
 		var foreground = (Sprite)GetNode("Foreground");
 		scaleFactor += 0.1f;
 		var factor = ((float)Math.Sin(((double)scaleFactor)));
 
 		foreground.ApplyScale(new Vector2(1 + (factor/200), 1 + (factor/200)));
 
-		if ( //Input.IsActionJustPressed("ui_right")	||
-			 Input.IsActionJustPressed("ui_accept") )
+		if ( Input.IsActionJustPressed("ui_accept") )
 		{
 			_on_StartButton_pressed();
 		}
 		
-		if ( //Input.IsActionJustPressed("ui_left")	||
-			 Input.IsActionJustPressed("ui_cancel") )
+		if ( Input.IsActionJustPressed("ui_cancel") )
 		{
 			_on_QuitButton_pressed();
 		}

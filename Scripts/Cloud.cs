@@ -3,8 +3,8 @@ using System;
 
 public class Cloud : Node2D
 {
-	float speed = 0;
-	Random rnd = new Random();
+	private float speed = 0;
+	private Random rnd = new Random();
 
 	public override void _Ready()
 	{

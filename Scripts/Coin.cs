@@ -3,7 +3,7 @@ using System;
 
 public class Coin : Node2D
 {
-	Generic2dGame game;
+	private Generic2dGame game;
 	private float moveSpeed = 0f;
 	private Vector2 positionDifference;
 	private Vector2 moneyBagPosition;

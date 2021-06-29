@@ -105,7 +105,6 @@ public class Boss1 : IEnemy
 					shootProjectileTimer = 0.0f;
 					
 					var aSprite = this.GetNode<AnimatedSprite>("Sprite");
-					//aSprite.Frames.SetAnimationLoop("attacking2", true);
 					aSprite.Play("attacking2");
 					aSprite.Playing = true;
 

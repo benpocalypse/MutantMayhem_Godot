@@ -458,7 +458,7 @@ tracks/35/loop_wrap = true
 tracks/35/imported = false
 tracks/35/enabled = true
 tracks/35/keys = {
-"times": PoolRealArray( 46.5, 50.2, 51, 52.8, 53.1 ),
+"times": PoolRealArray( 46.5, 50.2, 50.8, 52.8, 53.1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 496, 56 ), Vector2( 640, 770 ), Vector2( 640, -80 ), Vector2( 640, 380 ), Vector2( 640, 450 ) ]
@@ -545,7 +545,7 @@ tracks/42/keys = {
 "times": PoolRealArray( 52.8, 53.2, 53.6 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 720, 416 ), Vector2( 760, 200 ), Vector2( 820, 500 ) ]
+"values": [ Vector2( 720, 416 ), Vector2( 820, 200 ), Vector2( 820, 500 ) ]
 }
 tracks/43/type = "value"
 tracks/43/path = NodePath("AnimationPlayer/JanitorFalling/SplashSmall1:visible")
@@ -678,7 +678,6 @@ anims/intro = SubResource( 1 )
 
 [node name="CutsceneMusic1" type="AudioStreamPlayer" parent="AnimationPlayer"]
 stream = ExtResource( 25 )
-volume_db = 0.749992
 
 [node name="TextBackground1" type="Sprite" parent="AnimationPlayer"]
 visible = false
@@ -818,6 +817,7 @@ position = Vector2( 640, 360 )
 texture = ExtResource( 17 )
 
 [node name="CloseupBananaLanding" type="Node2D" parent="AnimationPlayer"]
+modulate = Color( 1, 1, 1, 0 )
 
 [node name="BackgroundScaffolding" type="Sprite" parent="AnimationPlayer/CloseupBananaLanding"]
 position = Vector2( 640, 501.174 )
@@ -834,14 +834,13 @@ z_index = 3
 texture = ExtResource( 8 )
 
 [node name="JanitorWalking" type="AnimatedSprite" parent="AnimationPlayer/CloseupBananaLanding"]
-position = Vector2( 169.67, 849.406 )
+position = Vector2( 790, 360 )
 frames = SubResource( 6 )
-frame = 3
+frame = 1
 playing = true
 
 [node name="BlackPolygon" type="Node2D" parent="AnimationPlayer"]
-visible = false
-modulate = Color( 1, 1, 1, 0.250005 )
+modulate = Color( 1, 1, 1, 1.27155e-05 )
 position = Vector2( 149.91, 0.00299072 )
 z_index = 5
 
@@ -851,15 +850,13 @@ color = Color( 0, 0, 0, 1 )
 polygon = PoolVector2Array( -5, -5, 1280, -5, 1280, 720, -5, 720 )
 
 [node name="JanitorFalling" type="Node2D" parent="AnimationPlayer"]
-visible = false
-modulate = Color( 1, 1, 1, 0 )
 
 [node name="CutsceneMusic2" type="AudioStreamPlayer" parent="AnimationPlayer/JanitorFalling"]
 stream = ExtResource( 7 )
-volume_db = 0.124998
+volume_db = 1.0
 
 [node name="Scaffolding" type="Sprite" parent="AnimationPlayer/JanitorFalling"]
-position = Vector2( 296, 144 )
+position = Vector2( 296, -152 )
 texture = ExtResource( 23 )
 
 [node name="Background" type="Sprite" parent="AnimationPlayer/JanitorFalling"]
@@ -868,27 +865,24 @@ z_index = -2
 texture = ExtResource( 24 )
 
 [node name="Janitor" type="Sprite" parent="AnimationPlayer/JanitorFalling"]
-position = Vector2( 496, 56 )
+position = Vector2( 640, 450 )
 scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 22 )
 
 [node name="Splash" type="Sprite" parent="AnimationPlayer/JanitorFalling"]
-visible = false
-position = Vector2( 648, 472 )
+position = Vector2( 648, 490 )
 texture = ExtResource( 26 )
 
 [node name="SplashSmall1" type="Sprite" parent="AnimationPlayer/JanitorFalling"]
-visible = false
-position = Vector2( 576, 400 )
+position = Vector2( 450, 400 )
 texture = ExtResource( 30 )
 
 [node name="SplashSmall2" type="Sprite" parent="AnimationPlayer/JanitorFalling"]
-visible = false
-position = Vector2( 720, 416 )
+position = Vector2( 820, 500 )
 texture = ExtResource( 29 )
 
 [node name="MutantPoison" type="Node2D" parent="AnimationPlayer/JanitorFalling"]
-position = Vector2( 680, 928 )
+position = Vector2( 680, 510 )
 
 [node name="MutantPoisonTop" type="Sprite" parent="AnimationPlayer/JanitorFalling/MutantPoison"]
 position = Vector2( -6, -15.5 )
