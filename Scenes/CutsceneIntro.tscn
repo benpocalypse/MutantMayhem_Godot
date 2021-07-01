@@ -798,6 +798,7 @@ texture = ExtResource( 8 )
 position = Vector2( 671.83, 474.639 )
 z_index = 1
 frames = SubResource( 4 )
+frame = 1
 playing = true
 
 [node name="BananaFlying" type="Node2D" parent="AnimationPlayer"]
@@ -845,7 +846,6 @@ texture = ExtResource( 8 )
 [node name="JanitorWalking" type="AnimatedSprite" parent="AnimationPlayer/CloseupBananaLanding"]
 position = Vector2( 790, 360 )
 frames = SubResource( 6 )
-frame = 2
 playing = true
 
 [node name="BlackPolygon" type="Node2D" parent="AnimationPlayer"]

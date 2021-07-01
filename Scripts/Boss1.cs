@@ -14,7 +14,7 @@ public class Boss1 : IEnemy
 	public delegate void BossDefeated();
 
 	// FIXME - Have the position of the player be dynamic/calculable.
-	private Vector2 playerPosition = new Vector2(640, 360);
+	private Vector2 playerPosition;
 	private Vector2 oldPosition = new Vector2(0, 0);
 	private Vector2 positionDifference = new Vector2(0, 0);
 	private float currentRadius = 270;
@@ -34,6 +34,8 @@ public class Boss1 : IEnemy
 	public override void _Ready()
 	{
 		game = (Generic2dGame)GetNode("/root/Generic2dGame");
+		
+		playerPosition = new Vector2(Generic2dGame.ScreenWidth / 2, Generic2dGame.ScreenHeight / 2);
 		
 		this.Position = new Vector2(Generic2dGame.ScreenWidth / 2, -80);
 
